@@ -1,6 +1,7 @@
 package com.trabalhoFinal.apiEcommerce.entities;
 
 import java.util.Date;
+import java.util.Set;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -9,6 +10,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Produto {
@@ -38,6 +40,9 @@ public class Produto {
 	@ManyToOne
 	@JoinColumn(name = "id_categoria", referencedColumnName = "id_categoria")
 	private Categoria categoria;
+
+	@OneToMany(mappedBy = "produto")
+	private Set<ItemPedido> itemPedidos;
 
 	public Integer getId_produto() {
 		return id_produto;
@@ -93,6 +98,14 @@ public class Produto {
 
 	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
+	}
+
+	public Set<ItemPedido> getItemPedidos() {
+		return itemPedidos;
+	}
+
+	public void setItemPedidos(Set<ItemPedido> itemPedidos) {
+		this.itemPedidos = itemPedidos;
 	}
 
 }

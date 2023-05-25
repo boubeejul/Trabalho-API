@@ -1,17 +1,20 @@
 package com.trabalhoFinal.apiEcommerce.entities;
 
 import jakarta.persistence.Column;
-import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.MapsId;
 
 @Entity
 public class ItemPedido {
 
-	@EmbeddedId
-	private ItemPedidoKey id_item_pedido;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id_itempedido")
+	private Integer id_itempedido;
 
 	@Column(name = "quantidade")
 	private Double quantidade;
@@ -29,25 +32,19 @@ public class ItemPedido {
 	private Double valor_liquido;
 
 	@ManyToOne
-	@MapsId("id_produto")
 	@JoinColumn(name = "id_produto")
 	private Produto produto;
 
 	@ManyToOne
-	@MapsId("id_pedido")
 	@JoinColumn(name = "id_pedido")
 	private Pedido pedido;
 
-	
-	 int grade; 
-	
-	
-	public ItemPedidoKey getId_item_pedido() {
-		return id_item_pedido;
+	public Integer getId_itempedido() {
+		return id_itempedido;
 	}
 
-	public void setId_item_pedido(ItemPedidoKey id_item_pedido) {
-		this.id_item_pedido = id_item_pedido;
+	public void setId_itempedido(Integer id_itempedido) {
+		this.id_itempedido = id_itempedido;
 	}
 
 	public Double getQuantidade() {
@@ -106,5 +103,4 @@ public class ItemPedido {
 		this.pedido = pedido;
 	}
 
-	
 }
