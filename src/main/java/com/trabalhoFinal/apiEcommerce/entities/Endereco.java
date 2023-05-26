@@ -14,6 +14,24 @@ import jakarta.persistence.OneToOne;
 @Entity
 public class Endereco {
 
+
+	public Endereco() {
+		super();
+		
+	}
+	
+	public Endereco(String cep, String logradouro, String bairro, String localidade, String complemento, String uf,
+			Cliente cliente) {
+		super();
+		this.cep = cep;
+		this.logradouro = logradouro;
+		this.bairro = bairro;
+		this.localidade = localidade;
+		this.complemento = complemento;
+		this.uf = uf;
+		this.cliente = cliente;
+	}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_endereco")
@@ -23,13 +41,13 @@ public class Endereco {
 	private String cep;
 
 	@Column(name = "rua")
-	private String rua;
+	private String logradouro;
 
 	@Column(name = "bairro")
 	private String bairro;
 
 	@Column(name = "cidade")
-	private String cidade;
+	private String localidade;
 
 	@Column(name = "numero")
 	private Integer numero;
@@ -43,82 +61,155 @@ public class Endereco {
 	@OneToOne(mappedBy = "endereco")
 	private Cliente cliente;
 
+	
+	/**
+	 * @return the id_endereco
+	 */
 	public Integer getId_endereco() {
 		return id_endereco;
 	}
 
+
+	/**
+	 * @param id_endereco the id_endereco to set
+	 */
 	public void setId_endereco(Integer id_endereco) {
 		this.id_endereco = id_endereco;
 	}
 
+
+	/**
+	 * @return the cep
+	 */
 	public String getCep() {
 		return cep;
 	}
 
+
+	/**
+	 * @param cep the cep to set
+	 */
 	public void setCep(String cep) {
 		this.cep = cep;
 	}
 
-	public String getRua() {
-		return rua;
+
+	/**
+	 * @return the logradouro
+	 */
+	public String getLogradouro() {
+		return logradouro;
 	}
 
-	public void setRua(String rua) {
-		this.rua = rua;
+
+	/**
+	 * @param logradouro the logradouro to set
+	 */
+	public void setLogradouro(String logradouro) {
+		this.logradouro = logradouro;
 	}
 
+
+	/**
+	 * @return the bairro
+	 */
 	public String getBairro() {
 		return bairro;
 	}
 
+
+	/**
+	 * @param bairro the bairro to set
+	 */
 	public void setBairro(String bairro) {
 		this.bairro = bairro;
 	}
 
-	public String getCidade() {
-		return cidade;
+
+	/**
+	 * @return the localidade
+	 */
+	public String getLocalidade() {
+		return localidade;
 	}
 
-	public void setCidade(String cidade) {
-		this.cidade = cidade;
+
+	/**
+	 * @param localidade the localidade to set
+	 */
+	public void setLocalidade(String localidade) {
+		this.localidade = localidade;
 	}
 
+
+	/**
+	 * @return the numero
+	 */
 	public Integer getNumero() {
 		return numero;
 	}
 
+
+	/**
+	 * @param numero the numero to set
+	 */
 	public void setNumero(Integer numero) {
 		this.numero = numero;
 	}
 
+
+	/**
+	 * @return the complemento
+	 */
 	public String getComplemento() {
 		return complemento;
 	}
 
+
+	/**
+	 * @param complemento the complemento to set
+	 */
 	public void setComplemento(String complemento) {
 		this.complemento = complemento;
 	}
 
+
+	/**
+	 * @return the uf
+	 */
 	public String getUf() {
 		return uf;
 	}
 
+
+	/**
+	 * @param uf the uf to set
+	 */
 	public void setUf(String uf) {
 		this.uf = uf;
 	}
 
+
+	/**
+	 * @return the cliente
+	 */
 	public Cliente getCliente() {
 		return cliente;
 	}
 
+
+	/**
+	 * @param cliente the cliente to set
+	 */
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
 
+
 	@Override
 	public String toString() {
-		return "Endereco [id_endereco=" + id_endereco + ", cep=" + cep + ", rua=" + rua + ", bairro=" + bairro
-				+ ", cidade=" + cidade + ", numero=" + numero + ", complemento=" + complemento + ", uf=" + uf
+		return "Endereco [id_endereco=" + id_endereco + ", cep=" + cep + ", rua=" + "logradouro" + ", bairro=" + bairro
+				+ ", cidade=" + "localidade" + ", numero=" + numero + ", complemento=" + complemento + ", uf=" + uf
 				+ ", cliente=" + cliente + "]";
 	}
 

@@ -1,9 +1,12 @@
 package com.trabalhoFinal.apiEcommerce.services;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import com.trabalhoFinal.apiEcommerce.entities.Endereco;
 import com.trabalhoFinal.apiEcommerce.repositories.EnderecoRepository;
@@ -23,7 +26,12 @@ public class EnderecoService {
 	}
 	
 	public Endereco saveEndereco(Endereco endereco) { 
-		return enderecoRepository.save(endereco); 
+		
+		Endereco enderecoApi = consultaApiEnderecoWs(endereco.getCep());
+		enderecoApi.setNumero(endereco.getNumero());
+		enderecoRepository.save(enderecoApi);
+		return enderecoApi; 
+		
 	}
 	
 	public Endereco updateEndereco(Endereco endereco, Integer id) { 
@@ -40,4 +48,17 @@ public class EnderecoService {
 			return false;
 		}
 	}
+	
+	private Endereco consultaApiEnderecoWs(String cep) {
+
+        RestTemplate restTemplate = new RestTemplate();
+        String uri = "https://viacep.com.br/ws/{cep}/json/";
+
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("cep", cep);
+
+        Endereco endereco = restTemplate.getForObject(uri, Endereco.class, params);
+
+        return endereco;
+    }
 }
