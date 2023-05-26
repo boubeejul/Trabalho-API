@@ -15,11 +15,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 
-@JsonIdentityInfo(
-		generator = ObjectIdGenerators.PropertyGenerator.class,
-		property = "id_cliente",
-		scope =  Cliente.class
-		) 
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id_cliente", scope = Cliente.class)
 @Entity
 public class Cliente {
 
@@ -113,4 +109,11 @@ public class Cliente {
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
 	}
+
+	@Override
+	public String toString() {
+		return "Cliente [id_cliente=" + id_cliente + ", email=" + email + ", nome_completo=" + nome_completo + ", cpf="
+				+ cpf + ", telefone=" + telefone + ", data_nascimento=" + data_nascimento + ", pedidos=" + pedidos +"]";
+	}
+
 }

@@ -10,11 +10,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
 
-@JsonIdentityInfo(
-		generator = ObjectIdGenerators.PropertyGenerator.class,
-		property = "id_endereco",
-		scope =  Endereco.class
-		) 
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id_endereco", scope = Endereco.class)
 @Entity
 public class Endereco {
 
@@ -118,4 +114,12 @@ public class Endereco {
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
+
+	@Override
+	public String toString() {
+		return "Endereco [id_endereco=" + id_endereco + ", cep=" + cep + ", rua=" + rua + ", bairro=" + bairro
+				+ ", cidade=" + cidade + ", numero=" + numero + ", complemento=" + complemento + ", uf=" + uf
+				+ ", cliente=" + cliente + "]";
+	}
+
 }

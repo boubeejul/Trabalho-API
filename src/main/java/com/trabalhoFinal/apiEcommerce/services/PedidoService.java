@@ -18,50 +18,71 @@ public class PedidoService {
 
 	@Autowired
 	private PedidoRepository pedidoRepository;
-	
-	public List<Pedido> getAllPedidos() { 
+
+	@Autowired
+	EmailService emailService;
+
+	public List<Pedido> getAllPedidos() {
 		return pedidoRepository.findAll();
 	}
-	
-	public List<PedidoDTO> getAllPedidosDTO() { 
+
+	public List<PedidoDTO> getAllPedidosDTO() {
 		ModelMapper modelMapper = new ModelMapper();
-		
+
 		List<PedidoDTO> pedidosDto = new ArrayList<>();
-		
-		for(Pedido pedido : pedidoRepository.findAll()) {
+
+		for (Pedido pedido : pedidoRepository.findAll()) {
 			PedidoDTO novoPedidoDto = modelMapper.map(pedido, PedidoDTO.class);
 			novoPedidoDto.setId_cliente(pedido.getCliente().getId_cliente());
-			
+
 			List<ProdutoPedidoDTO> prodPedDto = new ArrayList<>();
-			
-			for(ItemPedido itemPedido : pedido.getItemPedidos()) {
+
+			for (ItemPedido itemPedido : pedido.getItemPedidos()) {
 				ProdutoPedidoDTO novoProdDto = modelMapper.map(itemPedido.getProduto(), ProdutoPedidoDTO.class);
 				novoProdDto.setQuantidade(itemPedido.getQuantidade());
+				novoProdDto.setValor(itemPedido.getValor_liquido());
 				prodPedDto.add(novoProdDto);
 			}
-			
+
 			novoPedidoDto.setProdutos(prodPedDto);
 			pedidosDto.add(novoPedidoDto);
 		}
-		
+
 		return pedidosDto;
 	}
-	
+
 	public Pedido getPedidoById(Integer id) {
+		ModelMapper modelMapper = new ModelMapper();
+
+		PedidoDTO novoPedidoEmail = modelMapper.map(pedidoRepository.findById(id), PedidoDTO.class);
+
+		List<ProdutoPedidoDTO> prodPedDto = new ArrayList<>();
+
+		for (ItemPedido itemPedido : pedidoRepository.findById(id).get().getItemPedidos()) {
+			ProdutoPedidoDTO novoProdDto = modelMapper.map(itemPedido.getProduto(), ProdutoPedidoDTO.class);
+			novoProdDto.setQuantidade(itemPedido.getQuantidade());
+			novoProdDto.setValor(itemPedido.getValor_liquido());
+			prodPedDto.add(novoProdDto);
+		}
+
+		novoPedidoEmail.setProdutos(prodPedDto);
+
+		emailService.enviarEmail("romuloandriolo@hotmail.com", "Pedido!", novoPedidoEmail.toString());
+
 		return pedidoRepository.findById(id).orElse(null);
 	}
-	
-	public Pedido savePedido(Pedido pedido) { 
-		return pedidoRepository.save(pedido); 
+
+	public Pedido savePedido(Pedido pedido) {
+		return pedidoRepository.save(pedido);
 	}
-	
-	public Pedido updatePedido(Pedido pedido) { 
+
+	public Pedido updatePedido(Pedido pedido) {
 		return pedidoRepository.save(pedido);
 	}
 
 	public Boolean delPedido(Integer id) {
 		Pedido pedido = pedidoRepository.findById(id).orElse(null);
-		
+
 		if (pedido != null) {
 			pedidoRepository.deleteById(id);
 			return true;

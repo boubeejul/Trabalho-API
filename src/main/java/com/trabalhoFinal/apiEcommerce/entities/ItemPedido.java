@@ -34,6 +34,7 @@ public class ItemPedido {
 
 	@Column(name = "valor_liquido")
 	private Double valor_liquido;
+	
 
 	@ManyToOne
 	@JoinColumn(name = "id_produto")
@@ -80,7 +81,7 @@ public class ItemPedido {
 	}
 
 	public void setValor_bruto(Double valor_bruto) {
-		this.valor_bruto = preco_venda * quantidade;
+		this.valor_bruto = valor_bruto;
 	}
 
 	public Double getValor_liquido() {
@@ -88,7 +89,7 @@ public class ItemPedido {
 	}
 
 	public void setValor_liquido(Double valor_liquido) {
-		this.valor_liquido = valor_bruto - (valor_bruto * (percentual_desconto / 100));
+		this.valor_liquido = valor_liquido;
 	}
 
 	public Produto getProduto() {

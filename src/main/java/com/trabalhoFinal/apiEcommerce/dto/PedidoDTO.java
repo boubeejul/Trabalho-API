@@ -63,4 +63,13 @@ public class PedidoDTO {
 	public void setProdutos(List<ProdutoPedidoDTO> produtos) {
 		this.produtos = produtos;
 	}
+	
+	@Override
+	public String toString() {
+		return "PedidoDTO [id_pedido=" + id_pedido + ", data_pedido=" + data_pedido + ", data_entrega=" + data_entrega
+				+ ", data_envio=" + data_envio + ", status=" + status + ", valor_total=" + valor_total + ", id_cliente="
+				+ id_cliente + ", produtos=" + produtos + "]";
+	}
+	
+	
 }

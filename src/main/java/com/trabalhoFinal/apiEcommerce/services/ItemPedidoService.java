@@ -34,7 +34,9 @@ public class ItemPedidoService {
 	}
 	
 	public ItemPedido saveItemPedido(ItemPedido itemPedido) { 
-		atualizaValorTotal(itemPedido, 0);		
+		itemPedido.setValor_bruto(itemPedido.getPreco_venda() * itemPedido.getQuantidade());
+		itemPedido.setValor_liquido(itemPedido.getValor_bruto() - (itemPedido.getValor_bruto() * (itemPedido.getPercentual_desconto()/100)));
+		atualizaValorTotal(itemPedido, 0);
 		return itemPedidoRepository.save(itemPedido); 
 	}
 	
