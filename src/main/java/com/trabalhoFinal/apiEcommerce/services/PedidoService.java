@@ -55,7 +55,7 @@ public class PedidoService {
 		return pedidoRepository.save(pedido); 
 	}
 	
-	public Pedido updatePedido(Pedido pedido, Integer id) { 
+	public Pedido updatePedido(Pedido pedido) { 
 		return pedidoRepository.save(pedido);
 	}
 

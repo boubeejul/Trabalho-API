@@ -41,7 +41,7 @@ public class Pedido {
 	private String status;
 
 	@Column(name = "valor_total")
-	private Double valor_total;
+	private Double valor_total = 0.0;
 
 	@ManyToOne
 	@JoinColumn(name = "id_cliente", referencedColumnName = "id_cliente")
@@ -91,12 +91,21 @@ public class Pedido {
 	}
 
 	public Double getValor_total() {
-	
 		return valor_total;
 	}
 
-	public void setValor_total(Double valor_total) {
-		this.valor_total = valor_total;
+	public void setValor_total(Double valor, Integer r) {
+		// r = 0 | saveItemPedido
+		// r = 1 | delItemPedido
+		
+		switch(r) {
+		case 0:
+			this.valor_total += valor;
+			break;
+		case 1:
+			this.valor_total -= valor;
+			break;
+		}
 	}
 
 	public Cliente getCliente() {

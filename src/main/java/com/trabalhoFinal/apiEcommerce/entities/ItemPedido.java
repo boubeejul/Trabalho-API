@@ -76,19 +76,19 @@ public class ItemPedido {
 	}
 
 	public Double getValor_bruto() {
-		return valor_bruto = preco_venda * quantidade;
+		return valor_bruto;
 	}
 
 	public void setValor_bruto(Double valor_bruto) {
-		this.valor_bruto = valor_bruto;
+		this.valor_bruto = preco_venda * quantidade;
 	}
 
 	public Double getValor_liquido() {
-		return valor_liquido = valor_bruto - (valor_bruto * (percentual_desconto / 100));
+		return valor_liquido;
 	}
 
 	public void setValor_liquido(Double valor_liquido) {
-		this.valor_liquido = valor_liquido;
+		this.valor_liquido = valor_bruto - (valor_bruto * (percentual_desconto / 100));
 	}
 
 	public Produto getProduto() {
