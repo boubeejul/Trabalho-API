@@ -11,11 +11,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
-@JsonIdentityInfo(
-		generator = ObjectIdGenerators.PropertyGenerator.class,
-		property = "id_itempedido",
-		scope =  ItemPedido.class
-		) 
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id_itempedido", scope = ItemPedido.class)
 @Entity
 public class ItemPedido {
 
@@ -88,7 +84,7 @@ public class ItemPedido {
 	}
 
 	public Double getValor_liquido() {
-		return valor_liquido = valor_bruto - (valor_bruto *(percentual_desconto / 100));
+		return valor_liquido = valor_bruto - (valor_bruto * (percentual_desconto / 100));
 	}
 
 	public void setValor_liquido(Double valor_liquido) {

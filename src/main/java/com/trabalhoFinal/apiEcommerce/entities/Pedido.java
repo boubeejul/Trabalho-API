@@ -91,6 +91,7 @@ public class Pedido {
 	}
 
 	public Double getValor_total() {
+	
 		return valor_total;
 	}
 
