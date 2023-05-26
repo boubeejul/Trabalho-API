@@ -58,12 +58,8 @@ public class ItemPedidoService {
 	public void atualizaValorTotal(ItemPedido itemPedido, Integer r) {
 		// r = 0 | saveItemPedido
 		// r = 1 | delItemPedido
-		ModelMapper modelMapper = new ModelMapper();
 		
-		Optional<Pedido> pedido = pedidoRepository.findById(itemPedido.getPedido().getId_pedido());
-		Pedido pedidoAtualizado = modelMapper.map(pedido, Pedido.class);
-		pedidoAtualizado.setId_pedido(itemPedido.getPedido().getId_pedido());
-
+		Pedido pedidoAtualizado = pedidoService.getPedidoById(itemPedido.getPedido().getId_pedido());
 		pedidoAtualizado.setValor_total(itemPedido.getValor_liquido(), r);
 	
 		pedidoService.updatePedido(pedidoAtualizado);
