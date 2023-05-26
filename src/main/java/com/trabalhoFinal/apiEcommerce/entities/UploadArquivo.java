@@ -1,5 +1,9 @@
 package com.trabalhoFinal.apiEcommerce.entities;
 
+import java.sql.Types;
+
+import org.hibernate.annotations.JdbcTypeCode;
+
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
@@ -30,6 +34,7 @@ public class UploadArquivo {
 	private Produto produto;
 	
 	@Lob
+	@JdbcTypeCode(Types.BINARY)
 	private byte[] data;
 
 	public UploadArquivo() {
