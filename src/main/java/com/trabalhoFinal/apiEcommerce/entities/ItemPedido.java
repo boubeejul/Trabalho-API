@@ -80,7 +80,7 @@ public class ItemPedido {
 	}
 
 	public Double getValor_bruto() {
-		return valor_bruto;
+		return valor_bruto = preco_venda * quantidade;
 	}
 
 	public void setValor_bruto(Double valor_bruto) {
@@ -88,7 +88,7 @@ public class ItemPedido {
 	}
 
 	public Double getValor_liquido() {
-		return valor_liquido;
+		return valor_liquido = valor_bruto - (valor_bruto *(percentual_desconto / 100));
 	}
 
 	public void setValor_liquido(Double valor_liquido) {

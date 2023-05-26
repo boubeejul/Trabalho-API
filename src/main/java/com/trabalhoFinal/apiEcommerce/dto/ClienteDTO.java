@@ -2,8 +2,6 @@ package com.trabalhoFinal.apiEcommerce.dto;
 
 import java.util.List;
 
-import com.trabalhoFinal.apiEcommerce.entities.Endereco;
-
 public class ClienteDTO {
 
 	private String email;

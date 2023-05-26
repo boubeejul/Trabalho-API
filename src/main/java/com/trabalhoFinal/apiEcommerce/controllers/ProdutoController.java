@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.trabalhoFinal.apiEcommerce.dto.ProdutoDTO;
 import com.trabalhoFinal.apiEcommerce.entities.Produto;
 import com.trabalhoFinal.apiEcommerce.services.ProdutoService;
 
@@ -32,6 +33,13 @@ public class ProdutoController {
 	@GetMapping("/{id}")
 	public ResponseEntity<Produto> getProdutoById(@PathVariable Integer id) {
 		return new ResponseEntity<>(produtoService.getProdutoById(id), HttpStatus.OK);
+	}
+	
+	//DTO
+	
+	@GetMapping("/dto") 
+	public ResponseEntity<List<ProdutoDTO>> getAllProdutosDTO() {
+		return new ResponseEntity<>(produtoService.getAllProdutosDTO(), HttpStatus.OK);
 	}
 	
 	@PostMapping
