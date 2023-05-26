@@ -49,7 +49,7 @@ public class Endereco {
 	@Column(name = "cidade")
 	private String localidade;
 
-	@Column(name = "numero")
+	@Column(name = "numero", unique = true)
 	private Integer numero;
 
 	@Column(name = "complemento")

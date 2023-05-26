@@ -24,13 +24,14 @@ public class Cliente {
 	@Column(name = "id_cliente")
 	private Integer id_cliente;
 
-	@Column(name = "email")
+	@Column(name = "email", unique = true)
 	private String email;
 
 	@Column(name = "nome_completo")
 	private String nome_completo;
 
-	@Column(name = "cpf")
+	
+	@Column(name = "cpf", unique = true)
 	private String cpf;
 
 	@Column(name = "telefone")
@@ -43,7 +44,7 @@ public class Cliente {
 	private List<Pedido> pedidos;
 
 	@OneToOne
-	@JoinColumn(name = "id_endereco", referencedColumnName = "id_endereco")
+	@JoinColumn(name = "id_endereco", referencedColumnName = "id_endereco", unique = true)
 	private Endereco endereco;
 
 	public Integer getId_cliente() {
