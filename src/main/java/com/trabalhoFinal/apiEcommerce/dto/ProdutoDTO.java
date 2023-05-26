@@ -9,7 +9,27 @@ public class ProdutoDTO {
 	private Integer qtd_estoque;
 	private Date data_cadastro;
 	private Double valor_unitario;
+	private Integer id_imagem;
+	private String nome_imagem;
 	private CategoriaProdDTO categoriaProdDto;
+
+
+	
+	public String getNome_imagem() {
+		return nome_imagem;
+	}
+
+	public void setNome_imagem(String nome_imagem) {
+		this.nome_imagem = nome_imagem;
+	}
+
+	public Integer getId_imagem() {
+		return id_imagem;
+	}
+
+	public void setId_imagem(Integer id_imagem) {
+		this.id_imagem = id_imagem;
+	}
 
 	public String getNome() {
 		return nome;

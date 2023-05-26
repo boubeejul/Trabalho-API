@@ -8,12 +8,14 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 
 @JsonIdentityInfo(
 		generator = ObjectIdGenerators.PropertyGenerator.class,
@@ -51,6 +53,19 @@ public class Produto {
 
 	@OneToMany(mappedBy = "produto")
 	private Set<ItemPedido> itemPedidos;
+	
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "id_imagem", referencedColumnName = "id_imagem")
+	private UploadArquivo arquivo;
+
+	
+	public UploadArquivo getArquivo() {
+		return arquivo;
+	}
+
+	public void setArquivo(UploadArquivo arquivo) {
+		this.arquivo = arquivo;
+	}
 
 	public Integer getId_produto() {
 		return id_produto;

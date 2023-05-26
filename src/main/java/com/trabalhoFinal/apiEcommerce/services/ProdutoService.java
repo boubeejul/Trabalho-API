@@ -30,6 +30,8 @@ public class ProdutoService {
 		for (Produto produto : produtoRepository.findAll()) {
 			ProdutoDTO novoProdutoDto = modelMapper.map(produto, ProdutoDTO.class);
 			novoProdutoDto.setCategoriaProdDto(modelMapper.map(produto.getCategoria(), CategoriaProdDTO.class));
+			novoProdutoDto.setId_imagem(produto.getArquivo().getId_imagem());
+			novoProdutoDto.setNome_imagem(produto.getArquivo().getNome());
 			produtosDTO.add(novoProdutoDto);
 		}
 		return produtosDTO;
