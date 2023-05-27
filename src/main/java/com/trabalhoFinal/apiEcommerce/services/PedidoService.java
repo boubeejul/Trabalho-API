@@ -54,8 +54,11 @@ public class PedidoService {
 	}
 
 	public Pedido getPedidoById(Integer id) {
+		
+		
 		ModelMapper modelMapper = new ModelMapper();
 
+		pedidoRepository.findById(id).orElseThrow(() -> new PedidoNotFoundException(id));
 		PedidoDTO novoPedidoEmail = modelMapper.map(pedidoRepository.findById(id), PedidoDTO.class);
 
 		List<ProdutoPedidoDTO> prodPedDto = new ArrayList<>();
@@ -71,7 +74,7 @@ public class PedidoService {
 
 		emailService.enviarEmail("romuloandriolo@hotmail.com", "Pedido!", novoPedidoEmail.toString());
 
-		return pedidoRepository.findById(id).orElseThrow(() -> new PedidoNotFoundException(id)); 
+		return pedidoRepository.findById(id).orElse(null);
 
 	}
 	public Pedido savePedido(Pedido pedido) {
