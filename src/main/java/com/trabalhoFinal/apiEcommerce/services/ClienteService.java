@@ -12,6 +12,7 @@ import com.trabalhoFinal.apiEcommerce.dto.EnderecoClienteDTO;
 import com.trabalhoFinal.apiEcommerce.dto.PedidoClienteDTO;
 import com.trabalhoFinal.apiEcommerce.entities.Cliente;
 import com.trabalhoFinal.apiEcommerce.entities.Pedido;
+import com.trabalhoFinal.apiEcommerce.exceptions.ClienteNotFoundException;
 import com.trabalhoFinal.apiEcommerce.repositories.ClienteRepository;
 
 @Service
@@ -53,7 +54,8 @@ public class ClienteService {
 	}
 
 	public Cliente getClienteById(Integer id) {
-		return clienteRepository.findById(id).orElse(null);
+		return clienteRepository.findById(id).orElseThrow(() -> new ClienteNotFoundException(id)); 
+		
 	}
 
 	public Cliente saveCliente(Cliente cliente) {

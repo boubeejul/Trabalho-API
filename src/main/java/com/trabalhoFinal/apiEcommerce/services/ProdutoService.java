@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.trabalhoFinal.apiEcommerce.dto.CategoriaProdDTO;
 import com.trabalhoFinal.apiEcommerce.dto.ProdutoDTO;
 import com.trabalhoFinal.apiEcommerce.entities.Produto;
+import com.trabalhoFinal.apiEcommerce.exceptions.ProdutoNotFoundException;
 import com.trabalhoFinal.apiEcommerce.repositories.ProdutoRepository;
 
 @Service
@@ -38,9 +39,10 @@ public class ProdutoService {
 	}
 
 	public Produto getProdutoById(Integer id) {
-		return produtoRepository.findById(id).orElse(null);
-	}
+		return produtoRepository.findById(id).orElseThrow(() -> new ProdutoNotFoundException(id)); 
 
+	}
+	
 	public Produto saveProduto(Produto produto) {
 		return produtoRepository.save(produto);
 	}

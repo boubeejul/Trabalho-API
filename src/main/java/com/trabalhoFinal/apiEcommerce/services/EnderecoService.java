@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import com.trabalhoFinal.apiEcommerce.entities.Endereco;
+import com.trabalhoFinal.apiEcommerce.exceptions.EnderecoNotFoundException;
 import com.trabalhoFinal.apiEcommerce.repositories.EnderecoRepository;
 
 @Service
@@ -22,7 +23,7 @@ public class EnderecoService {
 	}
 	
 	public Endereco getEnderecoById(Integer id) {
-		return enderecoRepository.findById(id).orElse(null);
+		return enderecoRepository.findById(id).orElseThrow(() -> new EnderecoNotFoundException(id)); 
 	}
 	
 	public Endereco saveEndereco(Endereco endereco) { 

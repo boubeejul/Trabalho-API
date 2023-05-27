@@ -12,6 +12,7 @@ import com.trabalhoFinal.apiEcommerce.dto.PedidoDTO;
 import com.trabalhoFinal.apiEcommerce.dto.ProdutoPedidoDTO;
 import com.trabalhoFinal.apiEcommerce.entities.ItemPedido;
 import com.trabalhoFinal.apiEcommerce.entities.Pedido;
+import com.trabalhoFinal.apiEcommerce.exceptions.PedidoNotFoundException;
 import com.trabalhoFinal.apiEcommerce.repositories.PedidoRepository;
 
 @Service
@@ -70,9 +71,9 @@ public class PedidoService {
 
 		emailService.enviarEmail("romuloandriolo@hotmail.com", "Pedido!", novoPedidoEmail.toString());
 
-		return pedidoRepository.findById(id).orElse(null);
-	}
+		return pedidoRepository.findById(id).orElseThrow(() -> new PedidoNotFoundException(id)); 
 
+	}
 	public Pedido savePedido(Pedido pedido) {
 		
 		LocalDate localDate = LocalDate.now();

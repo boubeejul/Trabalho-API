@@ -1,15 +1,13 @@
 package com.trabalhoFinal.apiEcommerce.services;
 
 import java.util.List;
-import java.util.Optional;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.trabalhoFinal.apiEcommerce.dto.PedidoDTO;
 import com.trabalhoFinal.apiEcommerce.entities.ItemPedido;
 import com.trabalhoFinal.apiEcommerce.entities.Pedido;
+import com.trabalhoFinal.apiEcommerce.exceptions.ItemPedidoNotFoundException;
 import com.trabalhoFinal.apiEcommerce.repositories.ItemPedidoRepository;
 import com.trabalhoFinal.apiEcommerce.repositories.PedidoRepository;
 
@@ -30,7 +28,7 @@ public class ItemPedidoService {
 	}
 	
 	public ItemPedido getItemPedidoById(Integer id) {
-		return itemPedidoRepository.findById(id).orElse(null);
+		return itemPedidoRepository.findById(id).orElseThrow(() -> new ItemPedidoNotFoundException(id)); 
 	}
 	
 	public ItemPedido saveItemPedido(ItemPedido itemPedido) { 

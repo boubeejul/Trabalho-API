@@ -11,6 +11,7 @@ import com.trabalhoFinal.apiEcommerce.dto.CategoriaDTO;
 import com.trabalhoFinal.apiEcommerce.dto.ProdutoCatDTO;
 import com.trabalhoFinal.apiEcommerce.entities.Categoria;
 import com.trabalhoFinal.apiEcommerce.entities.Produto;
+import com.trabalhoFinal.apiEcommerce.exceptions.CategoriaNotFoundException;
 import com.trabalhoFinal.apiEcommerce.repositories.CategoriaRepository;
 
 @Service
@@ -48,7 +49,7 @@ public class CategoriaService {
 	}
 	
 	public Categoria getCategoriaById(Integer id) {
-		return categoriaRepository.findById(id).orElse(null);
+		return categoriaRepository.findById(id).orElseThrow(() -> new CategoriaNotFoundException(id)); 
 	}
 	
 	public Categoria saveCategoria(Categoria categoria) { 
