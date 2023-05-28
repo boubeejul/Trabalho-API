@@ -80,16 +80,14 @@ public class PedidoService {
 	public Pedido savePedido(Pedido pedido) {
 		
 		LocalDate localDate = LocalDate.now();
+		
 		if(pedido.getData_pedido().isEqual(localDate) || pedido.getData_pedido().isAfter(localDate)){
 			if(pedido.getData_entrega().isEqual(pedido.getData_pedido()) || pedido.getData_entrega().isAfter(pedido.getData_pedido())) {
 				if(pedido.getData_envio().isEqual(pedido.getData_entrega()) || pedido.getData_envio().isBefore(pedido.getData_entrega()))
 				
 					return pedidoRepository.save(pedido);
 			}
-			
 		}
-			
-		
 			return null;
 		
 	}

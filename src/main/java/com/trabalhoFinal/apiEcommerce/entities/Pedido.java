@@ -124,5 +124,4 @@ public class Pedido {
 	public void setItemPedidos(Set<ItemPedido> itemPedidos) {
 		this.itemPedidos = itemPedidos;
 	}
-
 }

@@ -14,24 +14,6 @@ import jakarta.persistence.OneToOne;
 @Entity
 public class Endereco {
 
-
-	public Endereco() {
-		super();
-		
-	}
-	
-	public Endereco(String cep, String logradouro, String bairro, String localidade, String complemento, String uf,
-			Cliente cliente) {
-		super();
-		this.cep = cep;
-		this.logradouro = logradouro;
-		this.bairro = bairro;
-		this.localidade = localidade;
-		this.complemento = complemento;
-		this.uf = uf;
-		this.cliente = cliente;
-	}
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_endereco")

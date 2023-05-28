@@ -3,7 +3,7 @@ package com.trabalhoFinal.apiEcommerce.exceptions;
 public class UploadArquivoException extends RuntimeException{
 	private static final long serialVersionUID = 1L;
 
-	public UploadArquivoException() {
+public UploadArquivoException() {
 		
 	}
 

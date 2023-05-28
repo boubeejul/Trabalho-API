@@ -3,14 +3,14 @@ package com.trabalhoFinal.apiEcommerce.dto;
 public class UploadArquivoDTO {
 
 	private String fileName;
-	private String filePath;
+	private Integer fileId;
 	private String fileType;
 	private long size;
 	
-	public UploadArquivoDTO(String fileName, String filePath, String fileType, long size) {
+	public UploadArquivoDTO(String fileName, Integer fileId, String fileType, long size) {
 		super();
 		this.fileName = fileName;
-		this.filePath = filePath;
+		this.fileId = fileId;
 		this.fileType = fileType;
 		this.size = size;
 	}
@@ -23,12 +23,12 @@ public class UploadArquivoDTO {
 		this.fileName = fileName;
 	}
 
-	public String getFilePath() {
-		return filePath;
+	public Integer getFileId() {
+		return fileId;
 	}
 
-	public void setFilePath(String filePath) {
-		this.filePath = filePath;
+	public void setFileId(Integer fileId) {
+		this.fileId = fileId;
 	}
 
 	public String getFileType() {
@@ -46,5 +46,4 @@ public class UploadArquivoDTO {
 	public void setSize(long size) {
 		this.size = size;
 	}
-	
 }
