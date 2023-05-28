@@ -60,7 +60,10 @@ public class PedidoService {
 		ModelMapper modelMapper = new ModelMapper();
 
 		pedidoRepository.findById(id).orElseThrow(() -> new PedidoNotFoundException(id));
+		
+		
 		PedidoDTO novoPedidoEmail = modelMapper.map(pedidoRepository.findById(id), PedidoDTO.class);
+		novoPedidoEmail.setId_cliente(pedidoRepository.findById(id).get().getCliente().getId_cliente());
 
 		List<ProdutoPedidoDTO> prodPedDto = new ArrayList<>();
 
