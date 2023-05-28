@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.trabalhoFinal.apiEcommerce.dto.MessageDTO;
 import com.trabalhoFinal.apiEcommerce.dto.PedidoDTO;
 import com.trabalhoFinal.apiEcommerce.entities.Pedido;
 import com.trabalhoFinal.apiEcommerce.services.PedidoService;
@@ -42,8 +43,13 @@ public class PedidoController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Pedido> savePedido(@RequestBody Pedido pedido) {
-		return new ResponseEntity<>(pedidoService.savePedido(pedido), HttpStatus.CREATED);
+	public ResponseEntity<?> savePedido(@RequestBody Pedido pedido) {
+		Boolean pedidoResponse = pedidoService.savePedido(pedido);
+		
+		if(pedidoResponse)
+			return new ResponseEntity<>(pedido, HttpStatus.CREATED);
+		else
+			return ResponseEntity.badRequest().body(new MessageDTO("Datas não cadastradas corretamente!"));
 	}
 	
 	@PutMapping

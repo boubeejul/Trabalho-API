@@ -1,14 +1,18 @@
 package com.trabalhoFinal.apiEcommerce.services;
 
 import java.io.IOException;
+import java.util.Optional;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.trabalhoFinal.apiEcommerce.dto.ClienteDTO;
 import com.trabalhoFinal.apiEcommerce.dto.UploadArquivoDTO;
 import com.trabalhoFinal.apiEcommerce.entities.UploadArquivo;
+import com.trabalhoFinal.apiEcommerce.exceptions.ClienteNotFoundException;
 import com.trabalhoFinal.apiEcommerce.exceptions.NoSuchElementException;
 import com.trabalhoFinal.apiEcommerce.exceptions.UploadArquivoException;
 import com.trabalhoFinal.apiEcommerce.repositories.UploadArquivoRepository;
@@ -40,7 +44,14 @@ public class UploadArquivoService {
 	}
 	
 	public UploadArquivo getFile(Integer id) {	
-		return uploadRepository.findById(id).get();
+		Optional<UploadArquivo> arquivoGet = uploadRepository.findById(id);
+		
+		if (arquivoGet != null) {
+			ModelMapper modelMapper = new ModelMapper();
+			return modelMapper.map(arquivoGet, UploadArquivo.class);
+		} else {
+			return null;
+		}
 	}
 	
 	public Boolean delFile(Integer id) {

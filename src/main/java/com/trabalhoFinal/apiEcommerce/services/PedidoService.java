@@ -8,6 +8,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.trabalhoFinal.apiEcommerce.dto.MessageDTO;
 import com.trabalhoFinal.apiEcommerce.dto.PedidoDTO;
 import com.trabalhoFinal.apiEcommerce.dto.ProdutoPedidoDTO;
 import com.trabalhoFinal.apiEcommerce.entities.ItemPedido;
@@ -77,18 +78,21 @@ public class PedidoService {
 		return pedidoRepository.findById(id).orElse(null);
 
 	}
-	public Pedido savePedido(Pedido pedido) {
+	
+	public Boolean savePedido(Pedido pedido) {
 		
 		LocalDate localDate = LocalDate.now();
 		
 		if(pedido.getData_pedido().isEqual(localDate) || pedido.getData_pedido().isAfter(localDate)){
 			if(pedido.getData_entrega().isEqual(pedido.getData_pedido()) || pedido.getData_entrega().isAfter(pedido.getData_pedido())) {
 				if(pedido.getData_envio().isEqual(pedido.getData_entrega()) || pedido.getData_envio().isBefore(pedido.getData_entrega()))
+					
+					pedidoRepository.save(pedido);
 				
-					return pedidoRepository.save(pedido);
+					return true;
 			}
 		}
-			return null;
+			return false;
 		
 	}
 

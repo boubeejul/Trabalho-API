@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.trabalhoFinal.apiEcommerce.dto.MessageDTO;
 import com.trabalhoFinal.apiEcommerce.dto.UploadArquivoDTO;
 import com.trabalhoFinal.apiEcommerce.entities.UploadArquivo;
-import com.trabalhoFinal.apiEcommerce.exceptions.NoSuchElementException;
 import com.trabalhoFinal.apiEcommerce.services.ProdutoService;
 import com.trabalhoFinal.apiEcommerce.services.UploadArquivoService;
 
@@ -39,14 +39,17 @@ public class UploadArquivoController {
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<byte[]> getArquivo(@PathVariable Integer id){
-
+	public ResponseEntity<?> getArquivo(@PathVariable Integer id){
 		UploadArquivo arquivo = uploadArquivoService.getFile(id);
 		
+		
+		if(arquivo != null) {
 			return ResponseEntity.ok()
 			        .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + arquivo.getNome() + "\"")
 			        .contentType(MediaType.valueOf(arquivo.getTipoArquivo()))
 			        .body(arquivo.getData());
+		} else
+			return new ResponseEntity<>(new MessageDTO("Imagem não encontrada"), HttpStatus.NOT_FOUND);
 	}
 	
 	@DeleteMapping("/{id}")
