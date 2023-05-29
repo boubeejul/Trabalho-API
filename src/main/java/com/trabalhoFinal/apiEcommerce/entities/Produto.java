@@ -1,5 +1,6 @@
 package com.trabalhoFinal.apiEcommerce.entities;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Set;
 
@@ -16,7 +17,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @JsonIdentityInfo(
 		generator = ObjectIdGenerators.PropertyGenerator.class,
@@ -45,13 +47,11 @@ public class Produto {
 
 	@NotNull
 	@Column(name = "data_cadastro")
-	private Date data_cadastro;
-
+	private LocalDate data_cadastro;
+	
 	@NotNull
 	@Column(name = "valor_unitario")
 	private Double valor_unitario;
-
-	// Adicionar imagem
 
 	@ManyToOne
 	@JoinColumn(name = "id_categoria", referencedColumnName = "id_categoria")
@@ -105,11 +105,11 @@ public class Produto {
 		this.qtd_estoque = qtd_estoque;
 	}
 
-	public Date getData_cadastro() {
+	public LocalDate getData_cadastro() {
 		return data_cadastro;
 	}
 
-	public void setData_cadastro(Date data_cadastro) {
+	public void setData_cadastro(LocalDate data_cadastro) {
 		this.data_cadastro = data_cadastro;
 	}
 

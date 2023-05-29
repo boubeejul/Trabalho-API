@@ -60,7 +60,7 @@ public class ClienteService {
 
 	public Cliente saveCliente(Cliente cliente) {
 		Cliente novoCliente = clienteRepository.save(cliente);
-		emailService.enviarEmail("romuloandriolo@hotmail.com", "Novo Cliente cadastrado!", novoCliente.toString());
+		//emailService.enviarEmail("romuloandriolo@hotmail.com", "Novo Cliente cadastrado!", novoCliente.toString());
 
 		return novoCliente;
 	}

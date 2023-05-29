@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,6 +28,7 @@ public class CategoriaController {
 	@Autowired
 	CategoriaService categoriaService;
 	
+	
 	@GetMapping 
 	public ResponseEntity<List<Categoria>> getAllCategorias() {
 		return new ResponseEntity<>(categoriaService.getAllCategorias(), HttpStatus.OK);
@@ -44,16 +46,19 @@ public class CategoriaController {
 		return new ResponseEntity<>(categoriaService.getAllCategoriasDTO(), HttpStatus.OK);
 	}
 	
+	@PreAuthorize("hasRole('ADMIN', 'MODERATOR')")
 	@PostMapping
 	public ResponseEntity<Categoria> saveCategoria(@RequestBody @Valid Categoria categoria) {
 		return new ResponseEntity<>(categoriaService.saveCategoria(categoria), HttpStatus.CREATED);
 	}
 	
+	@PreAuthorize("hasRole('ADMIN', 'MODERATOR')")
 	@PutMapping
 	public ResponseEntity<Categoria> updateCategoria(@RequestBody @Valid Categoria categoria, Integer id) {
 		return new ResponseEntity<>(categoriaService.updateCategoria(categoria, id), HttpStatus.OK);
 	}
 	
+	@PreAuthorize("hasRole('ADMIN', 'MODERATOR')")
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Boolean> delCategoria(@PathVariable Integer id) {
 		Boolean categoriaResponse = categoriaService.delCategoria(id);

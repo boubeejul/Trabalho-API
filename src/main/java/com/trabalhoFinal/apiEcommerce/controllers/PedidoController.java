@@ -38,6 +38,11 @@ public class PedidoController {
 		return new ResponseEntity<>(pedidoService.getPedidoById(id), HttpStatus.OK);
 	}
 	
+	@GetMapping("/relatorio/{id}")
+	public ResponseEntity<MessageDTO> getRelatorio(@PathVariable Integer id) {
+		return new ResponseEntity<>(pedidoService.requestRelatorio(id), HttpStatus.OK);
+	}
+	
 	//DTO
 	@GetMapping("/dto") 
 	public ResponseEntity<List<PedidoDTO>> getAllPedidosDTO() {

@@ -7,6 +7,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,6 +33,7 @@ public class UploadArquivoController {
 	@Autowired
 	ProdutoService produtoService;
 	
+	@PreAuthorize("hasRole('ADMIN', 'MODERATOR')")
 	@PostMapping
 	public ResponseEntity<UploadArquivoDTO> uploadArquivo(@RequestParam("file") MultipartFile file){
 
@@ -52,6 +54,7 @@ public class UploadArquivoController {
 			return new ResponseEntity<>(new MessageDTO("Imagem não encontrada"), HttpStatus.NOT_FOUND);
 	}
 	
+	@PreAuthorize("hasRole('ADMIN', 'MODERATOR')")
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Boolean> delProduto(@PathVariable Integer id) {
 		Boolean produtoResponse = produtoService.delProduto(id);

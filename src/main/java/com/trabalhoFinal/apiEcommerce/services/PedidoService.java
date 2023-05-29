@@ -3,12 +3,16 @@ package com.trabalhoFinal.apiEcommerce.services;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.trabalhoFinal.apiEcommerce.dto.MessageDTO;
 import com.trabalhoFinal.apiEcommerce.dto.PedidoDTO;
+import com.trabalhoFinal.apiEcommerce.dto.PedidoEmailDTO;
+import com.trabalhoFinal.apiEcommerce.dto.ProdutoEmailDTO;
 import com.trabalhoFinal.apiEcommerce.dto.ProdutoPedidoDTO;
 import com.trabalhoFinal.apiEcommerce.entities.ItemPedido;
 import com.trabalhoFinal.apiEcommerce.entities.Pedido;
@@ -56,12 +60,12 @@ public class PedidoService {
 	public Pedido getPedidoById(Integer id) {
 		
 		
-		ModelMapper modelMapper = new ModelMapper();
+		//ModelMapper modelMapper = new ModelMapper();
 
-		pedidoRepository.findById(id).orElseThrow(() -> new PedidoNotFoundException(id));
+		return pedidoRepository.findById(id).orElseThrow(() -> new PedidoNotFoundException(id));
 		
 		
-		PedidoDTO novoPedidoEmail = modelMapper.map(pedidoRepository.findById(id), PedidoDTO.class);
+		/*PedidoDTO novoPedidoEmail = modelMapper.map(pedidoRepository.findById(id), PedidoDTO.class);
 		Pedido emailPedido = pedidoRepository.findById(id).get();
 		novoPedidoEmail.setId_cliente(emailPedido.getCliente().getId_cliente());
 
@@ -76,10 +80,42 @@ public class PedidoService {
 
 		novoPedidoEmail.setProdutos(prodPedDto);
 
-		emailService.enviarEmail("romuloandriolo@hotmail.com", "Pedido!", novoPedidoEmail.toString());
+		emailService.enviarEmail("romuloandriolo@hotmail.com", "Pedido!", novoPedidoEmail.toString());*/
 
-		return pedidoRepository.findById(id).orElse(null);
+		//return pedidoRepository.findById(id).orElse(null);
 
+	}
+	
+	public MessageDTO requestRelatorio (Integer id) {
+		ModelMapper modelMapper = new ModelMapper();
+				
+		Optional<Pedido> pedido = pedidoRepository.findById(id);
+		
+		if(pedido != null) {
+			PedidoEmailDTO pedidoEmail = modelMapper.map(pedidoRepository.findById(id), PedidoEmailDTO.class);
+			
+			List<ProdutoEmailDTO> prodPedDto = new ArrayList<>();
+
+			for (ItemPedido itemPedido : pedidoRepository.findById(id).get().getItemPedidos()) {
+				ProdutoEmailDTO novoProdDto = modelMapper.map(itemPedido.getProduto(), ProdutoEmailDTO.class);
+				novoProdDto.setQuantidade(itemPedido.getQuantidade());
+				novoProdDto.setValor(itemPedido.getValor_liquido());
+				novoProdDto.setValor_bruto(itemPedido.getValor_bruto());
+				novoProdDto.setPercentual_desconto(itemPedido.getPercentual_desconto());
+				novoProdDto.setValor_liquido(itemPedido.getValor_liquido());
+				prodPedDto.add(novoProdDto);
+			}
+			
+			pedidoEmail.setProdutos(prodPedDto);
+			pedidoEmail.setId_cliente(pedidoRepository.findById(id).get().getCliente().getId_cliente());
+			
+			emailService.enviarEmail("romuloandriolo@hotmail.com", "Pedido!", pedidoEmail);
+			return new MessageDTO("Relatório enviado com sucesso!");
+		} else {
+			return new MessageDTO("Relatório indisponível");
+		}
+		
+		
 	}
 	
 	public Boolean savePedido(Pedido pedido) {

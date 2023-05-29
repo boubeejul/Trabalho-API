@@ -73,23 +73,22 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
 	}
 	
-//	@Override
-//    protected ResponseEntity<Object> handleExceptionInternal(Exception ex, @Nullable Object body, 
-//    		HttpHeaders headers, HttpStatusCode statusCode, WebRequest request) {
-//        ResponseEntity<Object> response = super.handleExceptionInternal(ex, body, headers, statusCode, request);
-//
-//        if (response.getBody() instanceof ProblemDetail problemDetailBody) {
-//            problemDetailBody.setProperty("message", ex.getMessage());
-//            if (ex instanceof MethodArgumentNotValidException subEx) {
-//                BindingResult result = subEx.getBindingResult();
-//                problemDetailBody.setTitle("Erro na requisição");
-//                problemDetailBody.setDetail("Ocorreu um erro ao processar a Requisição");
-//                problemDetailBody.setProperty("message", "Validation failed for object='" + 
-//                		result.getObjectName() + "'. " + "Error count: " + result.getErrorCount());
-//                
-//                problemDetailBody.setProperty("errors", result.getAllErrors());
-//            }
-//        }
-//        return response;
-//    }
+	@Override
+    protected ResponseEntity<Object> handleExceptionInternal(Exception ex, @Nullable Object body, 
+    		HttpHeaders headers, HttpStatusCode statusCode, WebRequest request) {
+        ResponseEntity<Object> response = super.handleExceptionInternal(ex, body, headers, statusCode, request);
+
+        if (response.getBody() instanceof ProblemDetail problemDetailBody) {
+            problemDetailBody.setProperty("message", ex.getMessage());
+            if (ex instanceof MethodArgumentNotValidException subEx) {
+                //BindingResult result = subEx.getBindingResult();
+                problemDetailBody.setTitle("Erro na requisição");
+                problemDetailBody.setDetail("Ocorreu um erro ao processar a requisição");
+                problemDetailBody.setProperty("message", "Verifique se os parâmetros foram preechidos corretamente.");
+                
+                //problemDetailBody.setProperty("errors", result.getAllErrors());
+            }
+        }
+        return response;
+    }
 }
