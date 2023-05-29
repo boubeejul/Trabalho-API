@@ -63,7 +63,8 @@ public class PedidoService {
 		
 		
 		PedidoDTO novoPedidoEmail = modelMapper.map(pedidoRepository.findById(id), PedidoDTO.class);
-		novoPedidoEmail.setId_cliente(pedidoRepository.findById(id).get().getCliente().getId_cliente());
+		Pedido emailPedido = pedidoRepository.findById(id).get();
+		novoPedidoEmail.setId_cliente(emailPedido.getCliente().getId_cliente());
 
 		List<ProdutoPedidoDTO> prodPedDto = new ArrayList<>();
 
