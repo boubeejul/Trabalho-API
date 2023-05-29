@@ -18,6 +18,8 @@ import com.trabalhoFinal.apiEcommerce.dto.CategoriaDTO;
 import com.trabalhoFinal.apiEcommerce.entities.Categoria;
 import com.trabalhoFinal.apiEcommerce.services.CategoriaService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/categorias")
 public class CategoriaController {
@@ -43,12 +45,12 @@ public class CategoriaController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Categoria> saveCategoria(@RequestBody Categoria categoria) {
+	public ResponseEntity<Categoria> saveCategoria(@RequestBody @Valid Categoria categoria) {
 		return new ResponseEntity<>(categoriaService.saveCategoria(categoria), HttpStatus.CREATED);
 	}
 	
 	@PutMapping
-	public ResponseEntity<Categoria> updateCategoria(@RequestBody Categoria categoria, Integer id) {
+	public ResponseEntity<Categoria> updateCategoria(@RequestBody @Valid Categoria categoria, Integer id) {
 		return new ResponseEntity<>(categoriaService.updateCategoria(categoria, id), HttpStatus.OK);
 	}
 	

@@ -18,6 +18,8 @@ import com.trabalhoFinal.apiEcommerce.dto.ClienteDTO;
 import com.trabalhoFinal.apiEcommerce.entities.Cliente;
 import com.trabalhoFinal.apiEcommerce.services.ClienteService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/clientes")
 public class ClienteController {
@@ -43,12 +45,12 @@ public class ClienteController {
 	
 	
 	@PostMapping
-	public ResponseEntity<Cliente> saveCliente(@RequestBody Cliente cliente) {
+	public ResponseEntity<Cliente> saveCliente(@RequestBody @Valid Cliente cliente) {
 		return new ResponseEntity<>(clienteService.saveCliente(cliente), HttpStatus.CREATED);
 	}
 	
 	@PutMapping
-	public ResponseEntity<Cliente> updateCliente(@RequestBody Cliente cliente, Integer id) {
+	public ResponseEntity<Cliente> updateCliente(@RequestBody @Valid Cliente cliente, Integer id) {
 		return new ResponseEntity<>(clienteService.updateCliente(cliente, id), HttpStatus.OK);
 	}
 	

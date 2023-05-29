@@ -19,6 +19,8 @@ import com.trabalhoFinal.apiEcommerce.dto.PedidoDTO;
 import com.trabalhoFinal.apiEcommerce.entities.Pedido;
 import com.trabalhoFinal.apiEcommerce.services.PedidoService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/pedidos")
 public class PedidoController {
@@ -43,7 +45,7 @@ public class PedidoController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<?> savePedido(@RequestBody Pedido pedido) {
+	public ResponseEntity<?> savePedido(@RequestBody @Valid Pedido pedido) {
 		Boolean pedidoResponse = pedidoService.savePedido(pedido);
 		
 		if(pedidoResponse)
@@ -53,7 +55,7 @@ public class PedidoController {
 	}
 	
 	@PutMapping
-	public ResponseEntity<Pedido> updatePedido(@RequestBody Pedido pedido, Integer id) {
+	public ResponseEntity<Pedido> updatePedido(@RequestBody @Valid Pedido pedido, Integer id) {
 		return new ResponseEntity<>(pedidoService.updatePedido(pedido), HttpStatus.OK);
 	}
 	

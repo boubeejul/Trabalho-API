@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.trabalhoFinal.apiEcommerce.entities.ItemPedido;
 import com.trabalhoFinal.apiEcommerce.services.ItemPedidoService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/itemPedidos")
 public class ItemPedidoController {
@@ -35,12 +37,12 @@ public class ItemPedidoController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<ItemPedido> saveItemPedido(@RequestBody ItemPedido itemPedido) {
+	public ResponseEntity<ItemPedido> saveItemPedido(@RequestBody @Valid ItemPedido itemPedido) {
 		return new ResponseEntity<>(itemPedidoService.saveItemPedido(itemPedido), HttpStatus.CREATED);
 	}
 	
 	@PutMapping
-	public ResponseEntity<ItemPedido> updateItemPedido(@RequestBody ItemPedido itemPedido, Integer id) {
+	public ResponseEntity<ItemPedido> updateItemPedido(@RequestBody @Valid ItemPedido itemPedido, Integer id) {
 		return new ResponseEntity<>(itemPedidoService.updateItemPedido(itemPedido, id), HttpStatus.OK);
 	}
 	

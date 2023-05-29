@@ -18,6 +18,8 @@ import com.trabalhoFinal.apiEcommerce.dto.ProdutoDTO;
 import com.trabalhoFinal.apiEcommerce.entities.Produto;
 import com.trabalhoFinal.apiEcommerce.services.ProdutoService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/produtos")
 public class ProdutoController {
@@ -43,12 +45,12 @@ public class ProdutoController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Produto> saveProduto(@RequestBody Produto produto) {
+	public ResponseEntity<Produto> saveProduto(@RequestBody @Valid Produto produto) {
 		return new ResponseEntity<>(produtoService.saveProduto(produto), HttpStatus.CREATED);
 	}
 	
 	@PutMapping
-	public ResponseEntity<Produto> updateProduto(@RequestBody Produto produto, Integer id) {
+	public ResponseEntity<Produto> updateProduto(@RequestBody @Valid Produto produto, Integer id) {
 		return new ResponseEntity<>(produtoService.updateProduto(produto, id), HttpStatus.OK);
 	}
 	

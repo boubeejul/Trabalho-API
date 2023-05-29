@@ -26,7 +26,7 @@ public class Categoria {
 	@Column(name = "id_categoria")
 	private Integer id_categoria;
 
-	@NotBlank
+	@NotBlank(message = "A categoria precisa ter um nome")
 	@Column(name = "nome")
 	private String nome;
 
