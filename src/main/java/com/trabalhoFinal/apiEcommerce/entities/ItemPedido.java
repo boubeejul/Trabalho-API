@@ -10,6 +10,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.*;
 
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id_itempedido", scope = ItemPedido.class)
 @Entity
@@ -20,18 +21,23 @@ public class ItemPedido {
 	@Column(name = "id_itempedido")
 	private Integer id_itempedido;
 
+	@NotNull
 	@Column(name = "quantidade")
 	private Double quantidade;
 
+	@NotNull
 	@Column(name = "preco_venda")
 	private Double preco_venda;
 
+	@NotNull
 	@Column(name = "percentual_desconto")
 	private Double percentual_desconto;
 
+	@NotNull
 	@Column(name = "valor_bruto")
 	private Double valor_bruto;
 
+	@NotNull
 	@Column(name = "valor_liquido")
 	private Double valor_liquido;
 

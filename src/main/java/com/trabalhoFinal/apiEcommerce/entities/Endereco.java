@@ -9,6 +9,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
+import jakarta.validation.constraints.*;
 
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id_endereco", scope = Endereco.class)
 @Entity
@@ -19,18 +20,23 @@ public class Endereco {
 	@Column(name = "id_endereco")
 	private Integer id_endereco;
 
+	@NotBlank
 	@Column(name = "cep")
 	private String cep;
 
+	
 	@Column(name = "rua")
 	private String logradouro;
 
+	
 	@Column(name = "bairro")
 	private String bairro;
 
+	
 	@Column(name = "cidade")
 	private String localidade;
 
+	
 	@Column(name = "numero", unique = true)
 	private Integer numero;
 

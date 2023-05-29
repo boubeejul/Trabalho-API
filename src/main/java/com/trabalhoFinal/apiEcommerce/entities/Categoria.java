@@ -11,6 +11,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.*;
 
 @JsonIdentityInfo(
 		generator = ObjectIdGenerators.PropertyGenerator.class,
@@ -25,9 +26,11 @@ public class Categoria {
 	@Column(name = "id_categoria")
 	private Integer id_categoria;
 
+	@NotBlank
 	@Column(name = "nome")
 	private String nome;
 
+	@NotBlank
 	@Column(name = "descricao")
 	private String descricao;
 

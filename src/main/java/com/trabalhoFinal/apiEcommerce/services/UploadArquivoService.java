@@ -9,11 +9,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.trabalhoFinal.apiEcommerce.dto.ClienteDTO;
 import com.trabalhoFinal.apiEcommerce.dto.UploadArquivoDTO;
 import com.trabalhoFinal.apiEcommerce.entities.UploadArquivo;
-import com.trabalhoFinal.apiEcommerce.exceptions.ClienteNotFoundException;
-import com.trabalhoFinal.apiEcommerce.exceptions.NoSuchElementException;
 import com.trabalhoFinal.apiEcommerce.exceptions.UploadArquivoException;
 import com.trabalhoFinal.apiEcommerce.repositories.UploadArquivoRepository;
 

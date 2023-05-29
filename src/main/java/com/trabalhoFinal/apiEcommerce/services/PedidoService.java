@@ -8,7 +8,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.trabalhoFinal.apiEcommerce.dto.MessageDTO;
 import com.trabalhoFinal.apiEcommerce.dto.PedidoDTO;
 import com.trabalhoFinal.apiEcommerce.dto.ProdutoPedidoDTO;
 import com.trabalhoFinal.apiEcommerce.entities.ItemPedido;

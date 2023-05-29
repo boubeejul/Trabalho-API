@@ -26,6 +26,7 @@ public class UploadArquivo {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id_imagem;
 	
+	
 	private String nome;
 	
 	private String tipoArquivo;

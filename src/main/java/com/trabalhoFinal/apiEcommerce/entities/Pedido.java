@@ -1,7 +1,6 @@
 package com.trabalhoFinal.apiEcommerce.entities;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
@@ -15,6 +14,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.*;
+
 
 @JsonIdentityInfo(
 		generator = ObjectIdGenerators.PropertyGenerator.class,
@@ -29,18 +30,23 @@ public class Pedido {
 	@Column(name = "id_pedido")
 	private Integer id_pedido;
 
+	@NotBlank
 	@Column(name = "data_pedido")
 	private LocalDate data_pedido;
 
+	@NotNull
 	@Column(name = "data_entrega")
 	private LocalDate data_entrega;
 
+	@NotNull
 	@Column(name = "data_envio")
 	private LocalDate data_envio;
 
+	@NotBlank
 	@Column(name = "status")
 	private String status;
 
+	@NotNull
 	@Column(name = "valor_total")
 	private Double valor_total = 0.0;
 
