@@ -107,6 +107,18 @@ public class Produto {
 	public void setQtd_estoque(Integer qtd_estoque) {
 		this.qtd_estoque = qtd_estoque;
 	}
+	
+	public void atualizaEstoque(Integer metodo, Integer quantidade) {
+		
+		switch(metodo) {
+			case 0:
+				this.qtd_estoque -= quantidade;
+				break;
+			case 1:
+				this.qtd_estoque += quantidade;
+				break;
+		}
+	}
 
 	public LocalDate getData_cadastro() {
 		return data_cadastro;

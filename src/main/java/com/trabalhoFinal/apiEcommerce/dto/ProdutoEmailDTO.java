@@ -5,7 +5,7 @@ import java.util.List;
 public class ProdutoEmailDTO {
 	
 	private String nome;
-	private Double quantidade;
+	private Integer quantidade;
 	private Double valor;
 	private Integer id_produto;
 	private Double valor_bruto;
@@ -62,11 +62,11 @@ public class ProdutoEmailDTO {
 		this.nome = nome;
 	}
 
-	public Double getQuantidade() {
+	public Integer getQuantidade() {
 		return quantidade;
 	}
 
-	public void setQuantidade(Double quantidade) {
+	public void setQuantidade(Integer quantidade) {
 		this.quantidade = quantidade;
 	}
 

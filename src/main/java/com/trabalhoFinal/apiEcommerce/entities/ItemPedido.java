@@ -22,7 +22,7 @@ public class ItemPedido {
 	private Integer id_itempedido;
 
 	@Column(name = "quantidade")
-	private Double quantidade;
+	private Integer quantidade;
 
 	@Column(name = "preco_venda")
 	private Double preco_venda;
@@ -53,11 +53,11 @@ public class ItemPedido {
 		this.id_itempedido = id_itempedido;
 	}
 
-	public Double getQuantidade() {
+	public Integer getQuantidade() {
 		return quantidade;
 	}
 
-	public void setQuantidade(Double quantidade) {
+	public void setQuantidade(Integer quantidade) {
 		this.quantidade = quantidade;
 	}
 

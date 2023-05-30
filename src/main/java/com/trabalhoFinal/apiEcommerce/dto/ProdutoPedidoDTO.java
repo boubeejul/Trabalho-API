@@ -3,7 +3,7 @@ package com.trabalhoFinal.apiEcommerce.dto;
 public class ProdutoPedidoDTO {
 
 	private String nome;
-	private Double quantidade;
+	private Integer quantidade;
 	private Double valor;
 	private Integer id_produto;
 
@@ -24,11 +24,11 @@ public class ProdutoPedidoDTO {
 		this.nome = nome;
 	}
 
-	public Double getQuantidade() {
+	public Integer getQuantidade() {
 		return quantidade;
 	}
 
-	public void setQuantidade(Double quantidade) {
+	public void setQuantidade(Integer quantidade) {
 		this.quantidade = quantidade;
 	}
 

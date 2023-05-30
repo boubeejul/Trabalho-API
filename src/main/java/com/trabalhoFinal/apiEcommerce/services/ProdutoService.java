@@ -54,7 +54,7 @@ public class ProdutoService {
 		return produtoRepository.save(produto);
 	}
 
-	public Produto updateProduto(Produto produto, Integer id) {
+	public Produto updateProduto(Produto produto) {
 		return produtoRepository.save(produto);
 	}
 

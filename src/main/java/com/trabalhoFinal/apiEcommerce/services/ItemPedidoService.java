@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.trabalhoFinal.apiEcommerce.dto.MessageDTO;
 import com.trabalhoFinal.apiEcommerce.entities.ItemPedido;
 import com.trabalhoFinal.apiEcommerce.entities.Pedido;
+import com.trabalhoFinal.apiEcommerce.entities.Produto;
 import com.trabalhoFinal.apiEcommerce.exceptions.ItemPedidoNotFoundException;
 import com.trabalhoFinal.apiEcommerce.repositories.ItemPedidoRepository;
 import com.trabalhoFinal.apiEcommerce.repositories.PedidoRepository;
@@ -20,6 +21,9 @@ public class ItemPedidoService {
 
 	@Autowired
 	private PedidoService pedidoService;
+	
+	@Autowired
+	private ProdutoService produtoService;
 
 	@Autowired
 	private PedidoRepository pedidoRepository;
@@ -36,7 +40,10 @@ public class ItemPedidoService {
 		itemPedido.setValor_bruto(itemPedido.getPreco_venda() * itemPedido.getQuantidade());
 		itemPedido.setValor_liquido(itemPedido.getValor_bruto()
 				- (itemPedido.getValor_bruto() * (itemPedido.getPercentual_desconto() / 100)));
+		
+		
 		atualizaValorTotal(itemPedido, 0);
+		atualizaEstoque(itemPedido, 0);
 		return itemPedidoRepository.save(itemPedido);
 	}
 
@@ -50,19 +57,29 @@ public class ItemPedidoService {
 
 		itemPedidoRepository.deleteById(id);
 		atualizaValorTotal(itemPedido, 1);
+		atualizaEstoque(itemPedido, 1);
 		return new MessageDTO("ItemPedido Deletado com sucesso!");
 
 	}
 
-	// atualiza o valor total do pedido toda vez que um novo ItemPedido é salvo ou
-	// deletado
+	// atualiza o valor total do pedido toda vez que um novo ItemPedido é salvo ou deletado
 	public void atualizaValorTotal(ItemPedido itemPedido, Integer r) {
 		// r = 0 | saveItemPedido
 		// r = 1 | delItemPedido
 
 		Pedido pedidoAtualizado = pedidoService.getPedidoById(itemPedido.getPedido().getId_pedido());
 		pedidoAtualizado.setValor_total(itemPedido.getValor_liquido(), r);
-
 		pedidoService.updatePedido(pedidoAtualizado);
+	}
+	
+	//atualiza a quantidade em estoque do produto toda vez que um novo ItemPedido é salvo ou deletado
+	public void atualizaEstoque(ItemPedido itemPedido, Integer r) {
+		// r = 0 | saveItemPedido
+		// r = 1 | delItemPedido
+		
+		Produto produtoPedido = produtoService.getProdutoById(itemPedido.getProduto().getId_produto());
+		Integer qntdPedido = itemPedido.getQuantidade();
+		produtoPedido.atualizaEstoque(r, qntdPedido);
+		produtoService.updateProduto(produtoPedido);
 	}
 }

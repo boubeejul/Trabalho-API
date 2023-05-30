@@ -58,34 +58,7 @@ public class PedidoService {
 	}
 
 	public Pedido getPedidoById(Integer id) {
-
-		// ModelMapper modelMapper = new ModelMapper();
-
 		return pedidoRepository.findById(id).orElseThrow(() -> new PedidoNotFoundException(id));
-
-		/*
-		 * PedidoDTO novoPedidoEmail = modelMapper.map(pedidoRepository.findById(id),
-		 * PedidoDTO.class); Pedido emailPedido = pedidoRepository.findById(id).get();
-		 * novoPedidoEmail.setId_cliente(emailPedido.getCliente().getId_cliente());
-		 * 
-		 * List<ProdutoPedidoDTO> prodPedDto = new ArrayList<>();
-		 * 
-		 * for (ItemPedido itemPedido :
-		 * pedidoRepository.findById(id).get().getItemPedidos()) { ProdutoPedidoDTO
-		 * novoProdDto = modelMapper.map(itemPedido.getProduto(),
-		 * ProdutoPedidoDTO.class);
-		 * novoProdDto.setQuantidade(itemPedido.getQuantidade());
-		 * novoProdDto.setValor(itemPedido.getValor_liquido());
-		 * prodPedDto.add(novoProdDto); }
-		 * 
-		 * novoPedidoEmail.setProdutos(prodPedDto);
-		 * 
-		 * emailService.enviarEmail("romuloandriolo@hotmail.com", "Pedido!",
-		 * novoPedidoEmail.toString());
-		 */
-
-		// return pedidoRepository.findById(id).orElse(null);
-
 	}
 
 	public MessageDTO requestRelatorio(Integer id) {
