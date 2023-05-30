@@ -15,12 +15,16 @@ import com.trabalhoFinal.apiEcommerce.entities.Cliente;
 import com.trabalhoFinal.apiEcommerce.entities.Pedido;
 import com.trabalhoFinal.apiEcommerce.exceptions.ClienteNotFoundException;
 import com.trabalhoFinal.apiEcommerce.repositories.ClienteRepository;
+import com.trabalhoFinal.apiEcommerce.repositories.EnderecoRepository;
 
 @Service
 public class ClienteService {
 
 	@Autowired
 	private ClienteRepository clienteRepository;
+	
+	@Autowired
+	private EnderecoRepository enderecoRepository;
 
 	@Autowired
 	EmailService emailService;
@@ -75,6 +79,7 @@ public class ClienteService {
 		clienteRepository.findById(id).orElseThrow(() -> new ClienteNotFoundException(id));
 
 		clienteRepository.deleteById(id);
+		enderecoRepository.deleteById(id);
 		return new MessageDTO("Cliente Excluido com sucesso");
 
 	}
