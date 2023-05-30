@@ -35,7 +35,7 @@ public class UploadArquivoController {
 	@PreAuthorize("hasAnyRole('ADMIN', 'MODERATOR')")
 	@PostMapping(consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE })
 	public ResponseEntity<UploadArquivoDTO> uploadArquivo(@RequestParam("file") MultipartFile file,
-			@RequestParam("source") String url) {
+			@RequestParam("url") String url) {
 
 		return new ResponseEntity<>(uploadArquivoService.armazenaArquivo(file, url), HttpStatus.CREATED);
 	}

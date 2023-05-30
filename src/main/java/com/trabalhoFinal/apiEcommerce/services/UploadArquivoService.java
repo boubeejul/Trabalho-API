@@ -25,6 +25,8 @@ public class UploadArquivoService {
 	public UploadArquivoDTO armazenaArquivo(MultipartFile file, String url) {
 		String clearFileName = StringUtils.cleanPath(file.getOriginalFilename());
 		
+		// url é o endereço para imagem que vai aparecer no email; não é obrigatória
+		// se uma não for enviada uma url, a seguinte será enviada:
 		if (url.isBlank())
 			url = "https://i.ibb.co/XxM2QFs/notfound.png";
 
