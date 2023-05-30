@@ -1,6 +1,6 @@
 package com.trabalhoFinal.apiEcommerce.entities;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
@@ -14,7 +14,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id_cliente", scope = Cliente.class)
 @Entity
@@ -43,7 +44,7 @@ public class Cliente {
 
 	@NotNull
 	@Column(name = "data_nascimento")
-	private Date data_nascimento;
+	private LocalDate data_nascimento;
 
 	@OneToMany(mappedBy = "cliente")
 	private List<Pedido> pedidos;
@@ -92,11 +93,11 @@ public class Cliente {
 		this.telefone = telefone;
 	}
 
-	public Date getData_nascimento() {
+	public LocalDate getData_nascimento() {
 		return data_nascimento;
 	}
 
-	public void setData_nascimento(Date data_nascimento) {
+	public void setData_nascimento(LocalDate data_nascimento) {
 		this.data_nascimento = data_nascimento;
 	}
 
@@ -119,7 +120,8 @@ public class Cliente {
 	@Override
 	public String toString() {
 		return "Cliente [id_cliente=" + id_cliente + ", email=" + email + ", nome_completo=" + nome_completo + ", cpf="
-				+ cpf + ", telefone=" + telefone + ", data_nascimento=" + data_nascimento + ", pedidos=" + pedidos +"]";
+				+ cpf + ", telefone=" + telefone + ", data_nascimento=" + data_nascimento + ", pedidos=" + pedidos
+				+ "]";
 	}
 
 }

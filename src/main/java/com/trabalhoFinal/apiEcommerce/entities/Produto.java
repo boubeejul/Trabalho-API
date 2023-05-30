@@ -1,7 +1,6 @@
 package com.trabalhoFinal.apiEcommerce.entities;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
@@ -41,11 +40,11 @@ public class Produto {
 	@Column(name = "descricao", unique = true)
 	private String descricao;
 
-	@NotNull
+	
 	@Column(name = "qtd_estoque")
 	private Integer qtd_estoque;
 
-	@NotNull
+
 	@Column(name = "data_cadastro")
 	private LocalDate data_cadastro;
 	

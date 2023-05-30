@@ -46,19 +46,19 @@ public class CategoriaController {
 		return new ResponseEntity<>(categoriaService.getAllCategoriasDTO(), HttpStatus.OK);
 	}
 	
-	@PreAuthorize("hasRole('ADMIN', 'MODERATOR')")
+	@PreAuthorize("hasAnyRole('ADMIN', 'MODERATOR')")
 	@PostMapping
 	public ResponseEntity<Categoria> saveCategoria(@RequestBody @Valid Categoria categoria) {
 		return new ResponseEntity<>(categoriaService.saveCategoria(categoria), HttpStatus.CREATED);
 	}
 	
-	@PreAuthorize("hasRole('ADMIN', 'MODERATOR')")
+	@PreAuthorize("hasAnyRole('ADMIN', 'MODERATOR')")
 	@PutMapping
 	public ResponseEntity<Categoria> updateCategoria(@RequestBody @Valid Categoria categoria, Integer id) {
 		return new ResponseEntity<>(categoriaService.updateCategoria(categoria, id), HttpStatus.OK);
 	}
 	
-	@PreAuthorize("hasRole('ADMIN', 'MODERATOR')")
+	@PreAuthorize("hasAnyRole('ADMIN', 'MODERATOR')")
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Boolean> delCategoria(@PathVariable Integer id) {
 		Boolean categoriaResponse = categoriaService.delCategoria(id);

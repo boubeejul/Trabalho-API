@@ -1,5 +1,6 @@
 package com.trabalhoFinal.apiEcommerce.services;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,11 +40,16 @@ public class ProdutoService {
 	}
 
 	public Produto getProdutoById(Integer id) {
-		return produtoRepository.findById(id).orElseThrow(() -> new ProdutoNotFoundException(id)); 
+		return produtoRepository.findById(id).orElseThrow(() -> new ProdutoNotFoundException(id));
 
 	}
-	
+
 	public Produto saveProduto(Produto produto) {
+
+		LocalDate localDate = LocalDate.now();
+
+		produto.setData_cadastro(localDate);
+
 		return produtoRepository.save(produto);
 	}
 
