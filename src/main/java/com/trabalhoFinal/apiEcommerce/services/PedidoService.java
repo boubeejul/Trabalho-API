@@ -61,6 +61,7 @@ public class PedidoService {
 		return pedidoRepository.findById(id).orElseThrow(() -> new PedidoNotFoundException(id));
 	}
 
+	// Gera Relatório de Pedido e envia por email
 	public MessageDTO requestRelatorio(Integer id) {
 		ModelMapper modelMapper = new ModelMapper();
 
@@ -79,11 +80,12 @@ public class PedidoService {
 				novoProdDto.setPercentual_desconto(itemPedido.getPercentual_desconto());
 				novoProdDto.setValor_liquido(itemPedido.getValor_liquido());
 				novoProdDto.setUrl_imagem(itemPedido.getProduto().getArquivo().getUrl_imagem());
+				novoProdDto.setPreco_venda(itemPedido.getPreco_venda());
 				prodPedDto.add(novoProdDto);
 			}
 
 			pedidoEmail.setProdutos(prodPedDto);
-			pedidoEmail.setId_cliente(pedidoRepository.findById(id).get().getCliente().getId_cliente());
+			pedidoEmail.setNome_cliente(pedidoRepository.findById(id).get().getCliente().getNome_completo());;
 
 			emailService.enviarEmail("romuloandriolo@hotmail.com", "Pedido!", pedidoEmail);
 			return new MessageDTO("Relatório enviado com sucesso!");
@@ -104,14 +106,10 @@ public class PedidoService {
 						|| pedido.getData_envio().isBefore(pedido.getData_entrega()))
 
 					pedidoRepository.save(pedido);
-
-				return true;
-
+					return true;
 			}
 		}
-
 		return false;
-
 	}
 
 	public Pedido updatePedido(Pedido pedido) {
@@ -122,7 +120,7 @@ public class PedidoService {
 		pedidoRepository.findById(id).orElseThrow(() -> new PedidoNotFoundException(id));
 
 		pedidoRepository.deleteById(id);
-		return new MessageDTO("Pedido Excluido com sucesso");
+		return new MessageDTO("Pedido excluido com sucesso");
 
 	}
 }

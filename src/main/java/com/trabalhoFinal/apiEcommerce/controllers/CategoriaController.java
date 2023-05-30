@@ -40,12 +40,13 @@ public class CategoriaController {
 		return new ResponseEntity<>(categoriaService.getCategoriaById(id), HttpStatus.OK);
 	}
 	
-	// DTO
 	
+	// DTO
 	@GetMapping("/dto")
 	public ResponseEntity<List<CategoriaDTO>> getAllCategoriasDTO() {
 		return new ResponseEntity<>(categoriaService.getAllCategoriasDTO(), HttpStatus.OK);
 	}
+	
 	
 	@PreAuthorize("hasAnyRole('ADMIN', 'MODERATOR')")
 	@PostMapping

@@ -11,7 +11,6 @@ import com.trabalhoFinal.apiEcommerce.entities.Pedido;
 import com.trabalhoFinal.apiEcommerce.entities.Produto;
 import com.trabalhoFinal.apiEcommerce.exceptions.ItemPedidoNotFoundException;
 import com.trabalhoFinal.apiEcommerce.repositories.ItemPedidoRepository;
-import com.trabalhoFinal.apiEcommerce.repositories.PedidoRepository;
 
 @Service
 public class ItemPedidoService {
@@ -24,9 +23,6 @@ public class ItemPedidoService {
 	
 	@Autowired
 	private ProdutoService produtoService;
-
-	@Autowired
-	private PedidoRepository pedidoRepository;
 
 	public List<ItemPedido> getAllItemPedidos() {
 		return itemPedidoRepository.findAll();

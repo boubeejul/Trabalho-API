@@ -11,7 +11,7 @@ public class PedidoEmailDTO {
 	private LocalDate data_envio;
 	private String status;
 	private Double valor_total;
-	private Integer id_cliente;
+	private String nome_cliente;
 	private List<ProdutoEmailDTO> produtos;
 	
 	
@@ -51,25 +51,17 @@ public class PedidoEmailDTO {
 	public void setValor_total(Double valor_total) {
 		this.valor_total = valor_total;
 	}
-	public Integer getId_cliente() {
-		return id_cliente;
+	public String getNome_cliente() {
+		return nome_cliente;
 	}
-	public void setId_cliente(Integer id_cliente) {
-		this.id_cliente = id_cliente;
+	public void setNome_cliente(String nome_cliente) {
+		this.nome_cliente = nome_cliente;
 	}
-	
 	public List<ProdutoEmailDTO> getProdutos() {
 		return produtos;
 	}
 	public void setProdutos(List<ProdutoEmailDTO> produtos) {
 		this.produtos = produtos;
 	}
-	@Override
-	public String toString() {
-		return "PedidoDTO [id_pedido=" + id_pedido + ", data_pedido=" + data_pedido + ", data_entrega=" + data_entrega
-				+ ", data_envio=" + data_envio + ", status=" + status + ", valor_total=" + valor_total + ", id_cliente="
-				+ id_cliente + ", produtos=" + produtos + "]";
-	}
-	
 	
 }

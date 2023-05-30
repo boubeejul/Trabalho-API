@@ -45,6 +45,7 @@ public class ItemPedido {
 	@JoinColumn(name = "id_pedido", referencedColumnName = "id_pedido")
 	private Pedido pedido;
 
+	
 	public Integer getId_itempedido() {
 		return id_itempedido;
 	}

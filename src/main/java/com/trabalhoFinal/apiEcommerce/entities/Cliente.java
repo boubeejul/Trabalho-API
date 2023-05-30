@@ -121,12 +121,4 @@ public class Cliente {
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
 	}
-
-	@Override
-	public String toString() {
-		return "Cliente [id_cliente=" + id_cliente + ", email=" + email + ", nome_completo=" + nome_completo + ", cpf="
-				+ cpf + ", telefone=" + telefone + ", data_nascimento=" + data_nascimento + ", pedidos=" + pedidos
-				+ "]";
-	}
-
 }

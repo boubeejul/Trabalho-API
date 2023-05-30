@@ -66,7 +66,7 @@ public class CategoriaService {
 		categoriaRepository.findById(id).orElseThrow(() -> new CategoriaNotFoundException(id));
 
 		categoriaRepository.deleteById(id);
-		return new MessageDTO("Categoria Excluida com sucesso");
+		return new MessageDTO("Categoria excluida com sucesso");
 
 	}
 }

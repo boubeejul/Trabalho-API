@@ -32,9 +32,7 @@ public class UploadArquivoService {
 			}
 
 			UploadArquivo arquivo = new UploadArquivo(clearFileName, file.getContentType(), url, file.getBytes());
-
 			uploadRepository.save(arquivo);
-
 			return new UploadArquivoDTO(clearFileName, arquivo.getId_imagem(), file.getContentType(), file.getSize(),
 					url);
 
@@ -57,7 +55,7 @@ public class UploadArquivoService {
 	public MessageDTO delFile(Integer id) {
 		uploadRepository.findById(id).orElseThrow(() -> new UploadArquivoNotFoundException(id));
 		uploadRepository.deleteById(id);
-		return new MessageDTO("Arquivo Deletado Com sucesso!");
+		return new MessageDTO("Arquivo deletado com sucesso!");
 
 	}
 

@@ -1,6 +1,5 @@
 package com.trabalhoFinal.apiEcommerce.dto;
 
-import java.util.List;
 
 public class ProdutoEmailDTO {
 	
@@ -12,7 +11,16 @@ public class ProdutoEmailDTO {
 	private Double valor_liquido;
 	private Double percentual_desconto;
 	private String url_imagem;
+	private Double preco_venda;
 
+
+	public Double getPreco_venda() {
+		return preco_venda;
+	}
+
+	public void setPreco_venda(Double preco_venda) {
+		this.preco_venda = preco_venda;
+	}
 
 	public String getUrl_imagem() {
 		return url_imagem;
@@ -76,10 +84,5 @@ public class ProdutoEmailDTO {
 
 	public void setValor(Double valor) {
 		this.valor = valor;
-	}
-
-	@Override
-	public String toString() {
-		return "ProdutoPedidoDTO [nome=" + nome + ", quantidade=" + quantidade + ", valor=" + valor + "]";
 	}
 }
