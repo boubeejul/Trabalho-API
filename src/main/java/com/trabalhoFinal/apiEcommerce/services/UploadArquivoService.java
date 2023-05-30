@@ -24,6 +24,9 @@ public class UploadArquivoService {
 
 	public UploadArquivoDTO armazenaArquivo(MultipartFile file, String url) {
 		String clearFileName = StringUtils.cleanPath(file.getOriginalFilename());
+		
+		if (url.isBlank())
+			url = "https://i.ibb.co/XxM2QFs/notfound.png";
 
 		try {
 

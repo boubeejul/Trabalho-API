@@ -126,7 +126,7 @@ public class PedidoService {
 			pedidoEmail.setProdutos(prodPedDto);
 			pedidoEmail.setNome_cliente(pedidoRepository.findById(id).get().getCliente().getNome_completo());;
 
-			emailService.enviarEmail("romuloandriolo@hotmail.com", "Pedido!", pedidoEmail);
+			emailService.enviarEmail("romuloandriolo@hotmail.com", "Relatório de Pedido", pedidoEmail);
 			return new MessageDTO("Relatório enviado com sucesso!");
 		} else {
 			return new MessageDTO("Relatório indisponível");

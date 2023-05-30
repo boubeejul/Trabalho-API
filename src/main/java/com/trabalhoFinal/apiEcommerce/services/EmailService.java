@@ -85,9 +85,6 @@ public class EmailService {
 	    	
 	    	for(ProdutoEmailDTO produto: pedido.getProdutos()) {
 	    		
-	    		
-	    		
-	    		
 	    		htmlContent += "<tr style=\"display: block;padding-bottom: 20px;color: #000\">\r\n"
 	    				+ "      <td><img src=\" " + produto.getUrl_imagem() + "\" style=\"width: 150px; padding-right: 30px\"/></td>\r\n"
 	    				+ "      <td><b>" + produto.getNome() +"</b>\r\n"
