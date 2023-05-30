@@ -9,7 +9,6 @@ import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.Nullable;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -19,7 +18,16 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @RestControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
+	@ExceptionHandler(UploadArquivoNotFoundException.class)
+	ProblemDetail handleBookmarkNotFoundException(UploadArquivoNotFoundException e) {
+		ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, e.getMessage());
+		problemDetail.setTitle("Arquivo Não Encontrado");
+		problemDetail.setType(URI.create("https://api.grupo3trabalho.com/errors/not-found"));
+		return problemDetail;
 
+	}
+	
+	
 	@ExceptionHandler(ClienteNotFoundException.class)
 	ProblemDetail handleBookmarkNotFoundException(ClienteNotFoundException e) {
 		ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, e.getMessage());
