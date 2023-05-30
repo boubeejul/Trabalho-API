@@ -32,7 +32,14 @@ public class ItemPedidoService {
 		return itemPedidoRepository.findById(id).orElseThrow(() -> new ItemPedidoNotFoundException(id));
 	}
 
-	public ItemPedido saveItemPedido(ItemPedido itemPedido) {
+	public Boolean saveItemPedido(ItemPedido itemPedido) {
+		
+		Produto produto = produtoService.getProdutoById(itemPedido.getProduto().getId_produto());
+		Integer qntProduto = produto.getQtd_estoque();
+		
+		if(itemPedido.getQuantidade() > qntProduto)
+			return false;
+		
 		itemPedido.setValor_bruto(itemPedido.getPreco_venda() * itemPedido.getQuantidade());
 		itemPedido.setValor_liquido(itemPedido.getValor_bruto()
 				- (itemPedido.getValor_bruto() * (itemPedido.getPercentual_desconto() / 100)));
@@ -40,7 +47,9 @@ public class ItemPedidoService {
 		
 		atualizaValorTotal(itemPedido, 0);
 		atualizaEstoque(itemPedido, 0);
-		return itemPedidoRepository.save(itemPedido);
+		itemPedidoRepository.save(itemPedido);
+		
+		return true;
 	}
 
 	public ItemPedido updateItemPedido(ItemPedido itemPedido, Integer id) {

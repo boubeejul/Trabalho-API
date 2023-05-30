@@ -11,7 +11,7 @@ public class SignupRequestDTO {
 
 	@NotBlank
 	@Size(max = 50)
-	@Email
+	@Email(message = "Digite um email válido!")
 	private String email;
 
 	private Set<String> role;

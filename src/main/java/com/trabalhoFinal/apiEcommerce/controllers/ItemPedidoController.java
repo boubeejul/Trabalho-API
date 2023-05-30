@@ -39,8 +39,13 @@ public class ItemPedidoController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<ItemPedido> saveItemPedido(@RequestBody @Valid ItemPedido itemPedido) {
-		return new ResponseEntity<>(itemPedidoService.saveItemPedido(itemPedido), HttpStatus.CREATED);
+	public ResponseEntity<?> saveItemPedido(@RequestBody @Valid ItemPedido itemPedido) {
+		Boolean retorno = itemPedidoService.saveItemPedido(itemPedido);
+		
+		if(retorno)
+			return new ResponseEntity<>(new MessageDTO("ItemPedido cadastrado com sucesso"), HttpStatus.CREATED);
+		else
+			return new ResponseEntity<>(new MessageDTO("Quantidade insuficiente no estoque"), HttpStatus.CREATED);
 	}
 	
 	@PutMapping
