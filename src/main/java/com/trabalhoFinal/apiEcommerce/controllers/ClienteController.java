@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.trabalhoFinal.apiEcommerce.dto.ClienteDTO;
 import com.trabalhoFinal.apiEcommerce.dto.MessageDTO;
+import com.trabalhoFinal.apiEcommerce.dto.MessageResponseDTO;
 import com.trabalhoFinal.apiEcommerce.entities.Cliente;
+import com.trabalhoFinal.apiEcommerce.repositories.ClienteRepository;
 import com.trabalhoFinal.apiEcommerce.services.ClienteService;
 
 import jakarta.validation.Valid;
@@ -28,6 +30,10 @@ public class ClienteController {
 
 	@Autowired
 	ClienteService clienteService;
+	
+	@Autowired
+	ClienteRepository clienteRepository;
+	
 	
 	@GetMapping 
 	public ResponseEntity<List<Cliente>> getAllClientes() {
@@ -49,7 +55,14 @@ public class ClienteController {
 	
 	
 	@PostMapping
-	public ResponseEntity<Cliente> saveCliente(@RequestBody @Valid Cliente cliente) {
+	public ResponseEntity<?> saveCliente(@RequestBody @Valid Cliente cliente) {
+		
+		if(clienteRepository.existsByCpf(cliente.getCpf()))
+			return ResponseEntity.badRequest().body(new MessageResponseDTO("Erro: Cpf já cadastrado já utilizado!"));
+		
+		if(clienteRepository.existsByEmail(cliente.getEmail()))
+			return ResponseEntity.badRequest().body(new MessageResponseDTO("Erro: Email já cadastrado já utilizado!"));
+		
 		return new ResponseEntity<>(clienteService.saveCliente(cliente), HttpStatus.CREATED);
 	}
 	

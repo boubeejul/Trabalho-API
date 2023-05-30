@@ -6,4 +6,5 @@ import com.trabalhoFinal.apiEcommerce.entities.Pedido;
 
 public interface PedidoRepository extends JpaRepository<Pedido, Integer>{
 
+	
 }

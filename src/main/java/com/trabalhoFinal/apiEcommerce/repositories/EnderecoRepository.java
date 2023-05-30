@@ -6,4 +6,5 @@ import com.trabalhoFinal.apiEcommerce.entities.Endereco;
 
 public interface EnderecoRepository extends JpaRepository<Endereco, Integer>{
 
+	
 }

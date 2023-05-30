@@ -37,6 +37,7 @@ public class EnderecoService {
 	}
 
 	public Endereco updateEndereco(Endereco endereco, Integer id) {
+		
 		return enderecoRepository.save(endereco);
 	}
 
