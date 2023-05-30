@@ -37,7 +37,7 @@ public class Endereco {
 	private String localidade;
 
 	
-	@Column(name = "numero", unique = true)
+	@Column(name = "numero")
 	private Integer numero;
 
 	@Column(name = "complemento")

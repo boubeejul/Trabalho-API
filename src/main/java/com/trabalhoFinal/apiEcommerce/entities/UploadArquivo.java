@@ -5,6 +5,7 @@ import java.sql.Types;
 import org.hibernate.annotations.JdbcTypeCode;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import jakarta.persistence.Column;
@@ -41,6 +42,7 @@ public class UploadArquivo {
 	
 	@Lob
 	@JdbcTypeCode(Types.BINARY)
+	@JsonIgnore
 	private byte[] data;
 	
 	
