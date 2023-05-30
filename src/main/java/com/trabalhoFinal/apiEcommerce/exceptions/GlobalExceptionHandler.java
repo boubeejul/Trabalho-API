@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.Nullable;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -16,6 +18,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 @RestControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
+
 
 	@ExceptionHandler(ClienteNotFoundException.class)
 	ProblemDetail handleBookmarkNotFoundException(ClienteNotFoundException e) {
@@ -70,7 +73,6 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 		return problemDetail;
 
 	}
-	
 
 	@Override
 	protected ResponseEntity<Object> handleExceptionInternal(Exception ex, @Nullable Object body, HttpHeaders headers,
@@ -80,12 +82,15 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 		if (response.getBody() instanceof ProblemDetail problemDetailBody) {
 			problemDetailBody.setProperty("message", ex.getMessage());
 			if (ex instanceof MethodArgumentNotValidException subEx) {
-				// BindingResult result = subEx.getBindingResult();
+				 BindingResult result = subEx.getBindingResult();
 				problemDetailBody.setTitle("Erro na requisição");
 				problemDetailBody.setDetail("Ocorreu um erro ao processar a requisição");
 				problemDetailBody.setProperty("message", "Verifique se os parâmetros foram preechidos corretamente.");
 
-				// problemDetailBody.setProperty("errors", result.getAllErrors());
+				for (int i = 0; i < result.getAllErrors().size(); i++) {
+				
+					problemDetailBody.setProperty("error" + (i+1), result.getAllErrors().get(i).getDefaultMessage() );
+				}
 			}
 		}
 		return response;

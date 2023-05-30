@@ -27,6 +27,7 @@ public class ItemPedido {
 	@Column(name = "preco_venda")
 	private Double preco_venda;
 
+	@NotNull(message = "O percentual de desconto deve ser preenchido!" )
 	@Column(name = "percentual_desconto")
 	private Double percentual_desconto;
 

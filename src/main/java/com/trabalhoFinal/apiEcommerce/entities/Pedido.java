@@ -30,19 +30,19 @@ public class Pedido {
 	@Column(name = "id_pedido")
 	private Integer id_pedido;
 
-	@NotNull
+	@NotNull(message = "A data do pedido deve ser preenchida!" )
 	@Column(name = "data_pedido")
 	private LocalDate data_pedido;
 	
-	@NotNull
+	@NotNull(message = "A data de entrega deve ser preenchida!" )
 	@Column(name = "data_entrega")
 	private LocalDate data_entrega;
 
-	@NotNull
+	@NotNull(message = "A data de envio deve ser preenchida!" )
 	@Column(name = "data_envio")
 	private LocalDate data_envio;
 
-	@NotBlank
+	@NotBlank(message = "O status da mercadoria deve ser preenchido!" )
 	@Column(name = "status")
 	private String status;
 

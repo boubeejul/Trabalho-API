@@ -3,6 +3,8 @@ package com.trabalhoFinal.apiEcommerce.entities;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.hibernate.validator.constraints.br.CPF;
+
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
@@ -14,6 +16,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
@@ -26,23 +29,25 @@ public class Cliente {
 	@Column(name = "id_cliente")
 	private Integer id_cliente;
 
-	@NotBlank
+	@NotBlank(message = "O email deve ser preenchido!" )
+	@Email(message = "O email é inválido!" )
 	@Column(name = "email", unique = true)
 	private String email;
 
-	@NotBlank
+	@NotBlank(message = "O nome deve ser preenchido!" )
 	@Column(name = "nome_completo")
 	private String nome_completo;
 
-	@NotBlank
+	@NotBlank(message = "O CPF deve ser preenchido!" )
+	@CPF(message = "O CPF é inválido!" )
 	@Column(name = "cpf", unique = true)
 	private String cpf;
 
-	@NotBlank
+	@NotBlank(message = "O telefone deve ser preenchido!" )
 	@Column(name = "telefone")
 	private String telefone;
 
-	@NotNull
+	@NotNull(message = "A data de nascimento deve ser preenchida!" )
 	@Column(name = "data_nascimento")
 	private LocalDate data_nascimento;
 

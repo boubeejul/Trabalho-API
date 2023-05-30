@@ -9,7 +9,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.NotBlank;
 
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id_endereco", scope = Endereco.class)
 @Entity
@@ -20,7 +20,7 @@ public class Endereco {
 	@Column(name = "id_endereco")
 	private Integer id_endereco;
 
-	@NotBlank
+	@NotBlank(message = "O CEP deve ser preenchido!" )
 	@Column(name = "cep")
 	private String cep;
 

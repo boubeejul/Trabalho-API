@@ -16,8 +16,10 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+
 
 @JsonIdentityInfo(
 		generator = ObjectIdGenerators.PropertyGenerator.class,
@@ -32,15 +34,16 @@ public class Produto {
 	@Column(name = "id_produto")
 	private Integer id_produto;
 
-	@NotBlank
+	@NotBlank(message = "O nome deve ser preenchido!" )
 	@Column(name = "nome")
 	private String nome;
 
-	@NotBlank
+	@NotBlank(message = "A descrição deve ser preenchida e deve ser unica!" )
 	@Column(name = "descricao", unique = true)
 	private String descricao;
 
 	
+	@Min(value = 0, message = "A quantidade no estoque não deve ser negativa!" )
 	@Column(name = "qtd_estoque")
 	private Integer qtd_estoque;
 
@@ -48,7 +51,7 @@ public class Produto {
 	@Column(name = "data_cadastro")
 	private LocalDate data_cadastro;
 	
-	@NotNull
+	@NotNull(message = "O valor unitario deve ser preenchido!" )
 	@Column(name = "valor_unitario")
 	private Double valor_unitario;
 

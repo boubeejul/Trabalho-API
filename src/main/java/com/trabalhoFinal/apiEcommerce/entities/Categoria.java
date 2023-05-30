@@ -26,11 +26,11 @@ public class Categoria {
 	@Column(name = "id_categoria")
 	private Integer id_categoria;
 
-	@NotBlank(message = "A categoria precisa ter um nome")
+	@NotBlank(message = "A categoria precisa ter um nome!")
 	@Column(name = "nome")
 	private String nome;
 
-	@NotBlank
+	@NotBlank(message = "A descrição precisa ser preenchida!")
 	@Column(name = "descricao")
 	private String descricao;
 
