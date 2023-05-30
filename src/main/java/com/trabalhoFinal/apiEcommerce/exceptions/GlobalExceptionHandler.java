@@ -17,6 +17,15 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 @RestControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
+	
+	@ExceptionHandler(UserNotFoundException.class)
+	ProblemDetail handleBookmarkNotFoundException(UserNotFoundException e) {
+		ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, e.getMessage());
+		problemDetail.setTitle("Usuário Não Encontrado");
+		problemDetail.setType(URI.create("https://api.grupo3trabalho.com/errors/not-found"));
+		return problemDetail;
+
+	}
 
 	@ExceptionHandler(UploadArquivoNotFoundException.class)
 	ProblemDetail handleBookmarkNotFoundException(UploadArquivoNotFoundException e) {
