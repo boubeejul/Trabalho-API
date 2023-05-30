@@ -20,7 +20,7 @@ public class UploadArquivoService {
 	@Autowired
 	UploadArquivoRepository uploadRepository;
 	
-	public UploadArquivoDTO armazenaArquivo(MultipartFile file) {
+	public UploadArquivoDTO armazenaArquivo(MultipartFile file, String url) {
 		String clearFileName = StringUtils.cleanPath(file.getOriginalFilename());
 		
 		try {
@@ -29,11 +29,11 @@ public class UploadArquivoService {
 				throw new UploadArquivoException("Nome de arquivo inválido: " + clearFileName);
 			}
 			
-			UploadArquivo arquivo = new UploadArquivo(clearFileName, file.getContentType(), file.getBytes());
+			UploadArquivo arquivo = new UploadArquivo(clearFileName, file.getContentType(), url, file.getBytes());
 			
 			uploadRepository.save(arquivo);
 			
-			return new UploadArquivoDTO(clearFileName, arquivo.getId_imagem(), file.getContentType(), file.getSize());
+			return new UploadArquivoDTO(clearFileName, arquivo.getId_imagem(), file.getContentType(), file.getSize(), url);
 			
 		} catch(IOException ex) {
 			throw new UploadArquivoException("Ocorreu um erro ao armazenar o arquivo" + clearFileName, ex);

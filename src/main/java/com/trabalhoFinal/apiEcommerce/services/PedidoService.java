@@ -106,6 +106,7 @@ public class PedidoService {
 				novoProdDto.setValor_bruto(itemPedido.getValor_bruto());
 				novoProdDto.setPercentual_desconto(itemPedido.getPercentual_desconto());
 				novoProdDto.setValor_liquido(itemPedido.getValor_liquido());
+				novoProdDto.setUrl_imagem(itemPedido.getProduto().getArquivo().getUrl_imagem());
 				prodPedDto.add(novoProdDto);
 			}
 

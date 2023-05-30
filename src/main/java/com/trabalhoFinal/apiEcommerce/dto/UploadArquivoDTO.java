@@ -6,13 +6,25 @@ public class UploadArquivoDTO {
 	private Integer fileId;
 	private String fileType;
 	private long size;
+	private String url_imagem;
 	
-	public UploadArquivoDTO(String fileName, Integer fileId, String fileType, long size) {
+	
+
+	public UploadArquivoDTO(String fileName, Integer fileId, String fileType, long size, String url_imagem) {
 		super();
 		this.fileName = fileName;
 		this.fileId = fileId;
 		this.fileType = fileType;
 		this.size = size;
+		this.url_imagem = url_imagem;
+	}
+
+	public String getUrl_imagem() {
+		return url_imagem;
+	}
+
+	public void setUrl_imagem(String url_imagem) {
+		this.url_imagem = url_imagem;
 	}
 
 	public String getFileName() {

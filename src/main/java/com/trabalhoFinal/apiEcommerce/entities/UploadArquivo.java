@@ -7,6 +7,7 @@ import org.hibernate.annotations.JdbcTypeCode;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -26,28 +27,42 @@ public class UploadArquivo {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id_imagem;
 	
-	
+	@Column(name="nome_imagem")
 	private String nome;
 	
+	@Column(name="tipo_arquivo")
 	private String tipoArquivo;
 	
 	@OneToOne(mappedBy = "arquivo")
 	private Produto produto;
+
+	@Column(name="url_imagem")
+	private String url_imagem;
 	
 	@Lob
 	@JdbcTypeCode(Types.BINARY)
 	private byte[] data;
+	
+	
 
 	public UploadArquivo() {
 	}
 
-	public UploadArquivo(String nome, String tipoArquivo, byte[] data) {
+
+	public UploadArquivo(String nome, String tipoArquivo, String url_imagem, byte[] data) {
 		super();
 		this.nome = nome;
 		this.tipoArquivo = tipoArquivo;
+		this.url_imagem = url_imagem;
 		this.data = data;
 	}
 
+	public String getUrl_imagem() {
+		return url_imagem;
+	}
+	public void setUrl_imagem(String url_imagem) {
+		this.url_imagem = url_imagem;
+	}
 	public Produto getProduto() {
 		return produto;
 	}

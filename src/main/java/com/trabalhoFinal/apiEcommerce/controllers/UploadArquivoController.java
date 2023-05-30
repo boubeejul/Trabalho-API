@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -33,14 +34,14 @@ public class UploadArquivoController {
 	@Autowired
 	ProdutoService produtoService;
 	
-	@PreAuthorize("hasRole('ADMIN', 'MODERATOR')")
-	@PostMapping
-	public ResponseEntity<UploadArquivoDTO> uploadArquivo(@RequestParam("file") MultipartFile file){
+	@PreAuthorize("hasAnyRole('ADMIN', 'MODERATOR')")
+	@PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+	public ResponseEntity<UploadArquivoDTO> uploadArquivo(@RequestParam("file") MultipartFile file, @RequestPart("source") String url){
 
-		return new ResponseEntity<>(uploadArquivoService.armazenaArquivo(file), HttpStatus.CREATED);
+		return new ResponseEntity<>(uploadArquivoService.armazenaArquivo(file, url), HttpStatus.CREATED);
 	}
 	
-	@GetMapping("/{id}")
+	@GetMapping("/view/{id}")
 	public ResponseEntity<?> getArquivo(@PathVariable Integer id){
 		UploadArquivo arquivo = uploadArquivoService.getFile(id);
 		
@@ -54,7 +55,7 @@ public class UploadArquivoController {
 			return new ResponseEntity<>(new MessageDTO("Imagem não encontrada"), HttpStatus.NOT_FOUND);
 	}
 	
-	@PreAuthorize("hasRole('ADMIN', 'MODERATOR')")
+	@PreAuthorize("hasAnyRole('ADMIN', 'MODERATOR')")
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Boolean> delProduto(@PathVariable Integer id) {
 		Boolean produtoResponse = produtoService.delProduto(id);

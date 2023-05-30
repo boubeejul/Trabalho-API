@@ -80,13 +80,13 @@ public class EmailService {
 	    			+ "        <span>"+ pedido.getStatus() +"</span>\r\n"
 	    			+ "      </div>\r\n"
 	    			+ "    </div>\r\n"
-	    			+ "  </div>";
+	    			+ "  </div>"
+	    			+ "<div style=\"width: 668px;padding-left: 20px;padding-top: 20px;padding-bottom: 10px;border: 1px solid #181818;\">\r\n";
 	    	
 	    	for(ProdutoEmailDTO produto: pedido.getProdutos()) {
 	    		
-	    		htmlContent += "<div style=\"width: 668px;padding-left: 20px;padding-top: 20px;padding-bottom: 10px;border: 1px solid #181818;\">\r\n"
-	    				+ "\r\n"
-	    				+ "    <div style=\"display: flex; gap: 20px; padding-bottom: 20px;\">\r\n"
+	    		htmlContent += "    <div style=\"display: flex; gap: 20px; padding-bottom: 20px;\">\r\n"
+	    				+ " 	<img src=\" " + produto.getUrl_imagem() + "\" style=\"width: 150px\"/>"
 	    				+ "      <div style=\"display: flex; justify-content: center; flex-direction: column;\">\r\n"
 	    				+ "        <div style=\"font-weight: bold;\">" + produto.getNome() +"</div>\r\n"
 	    				+ "        <div style=\"font-size: 13px\">Código do produto: " + produto.getId_produto() + "</div>\r\n"
@@ -99,7 +99,7 @@ public class EmailService {
 	    				+ "    </div>";
 	    	}
 	    	
-	    		htmlContent += "</div>";
+	    		htmlContent += "</div></html>";
 	    			
 	    	message.setContent(htmlContent, "text/html; charset=utf-8");
 	    			

@@ -11,8 +11,16 @@ public class ProdutoEmailDTO {
 	private Double valor_bruto;
 	private Double valor_liquido;
 	private Double percentual_desconto;
+	private String url_imagem;
 
-	
+
+	public String getUrl_imagem() {
+		return url_imagem;
+	}
+
+	public void setUrl_imagem(String url_imagem) {
+		this.url_imagem = url_imagem;
+	}
 
 	public Double getValor_bruto() {
 		return valor_bruto;
