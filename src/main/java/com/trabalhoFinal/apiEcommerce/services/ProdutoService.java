@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.trabalhoFinal.apiEcommerce.dto.CategoriaProdDTO;
+import com.trabalhoFinal.apiEcommerce.dto.MessageDTO;
 import com.trabalhoFinal.apiEcommerce.dto.ProdutoDTO;
 import com.trabalhoFinal.apiEcommerce.entities.Produto;
 import com.trabalhoFinal.apiEcommerce.exceptions.ProdutoNotFoundException;
@@ -57,14 +58,17 @@ public class ProdutoService {
 		return produtoRepository.save(produto);
 	}
 
-	public Boolean delProduto(Integer id) {
-		Produto produto = produtoRepository.findById(id).orElse(null);
+	public MessageDTO delProduto(Integer id) {
+		produtoRepository.findById(id).orElseThrow(() -> new ProdutoNotFoundException(id));
 
-		if (produto != null) {
-			produtoRepository.deleteById(id);
-			return true;
-		} else {
-			return false;
-		}
+//		if (produto != null) {
+//			produtoRepository.deleteById(id);
+//			return true;
+//		} else {
+//			return false;
+//		}
+		
+		produtoRepository.deleteById(id);
+		return new MessageDTO("Produto Deletado com sucesso!");	
 	}
 }

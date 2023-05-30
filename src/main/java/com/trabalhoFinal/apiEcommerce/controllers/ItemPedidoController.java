@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.trabalhoFinal.apiEcommerce.dto.MessageDTO;
 import com.trabalhoFinal.apiEcommerce.entities.ItemPedido;
 import com.trabalhoFinal.apiEcommerce.services.ItemPedidoService;
 
@@ -49,11 +50,8 @@ public class ItemPedidoController {
 	
 	@PreAuthorize("hasRole('ADMIN')")
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Boolean> delItemPedido(@PathVariable Integer id) {
-		Boolean itemPedidoResponse = itemPedidoService.delItemPedido(id);
-		if (itemPedidoResponse)
-			return new ResponseEntity<>(itemPedidoResponse, HttpStatus.OK);
-		else
-			return new ResponseEntity<>(itemPedidoResponse, HttpStatus.NOT_MODIFIED);
+	public ResponseEntity<MessageDTO> delItemPedido(@PathVariable Integer id) {
+		return new ResponseEntity<>(itemPedidoService.delItemPedido(id), HttpStatus.OK);
+		
 	}
 }

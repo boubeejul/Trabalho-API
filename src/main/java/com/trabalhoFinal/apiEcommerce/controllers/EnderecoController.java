@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.trabalhoFinal.apiEcommerce.dto.MessageDTO;
 import com.trabalhoFinal.apiEcommerce.entities.Endereco;
 import com.trabalhoFinal.apiEcommerce.services.EnderecoService;
 
@@ -26,34 +27,31 @@ public class EnderecoController {
 
 	@Autowired
 	EnderecoService enderecoService;
-	
-	@GetMapping 
+
+	@GetMapping
 	public ResponseEntity<List<Endereco>> getAllEnderecos() {
 		return new ResponseEntity<>(enderecoService.getAllEnderecos(), HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/{id}")
 	public ResponseEntity<Endereco> getEnderecoById(@PathVariable Integer id) {
 		return new ResponseEntity<>(enderecoService.getEnderecoById(id), HttpStatus.OK);
 	}
-	
+
 	@PostMapping
 	public ResponseEntity<Endereco> saveEndereco(@RequestBody @Valid Endereco endereco) {
 		return new ResponseEntity<>(enderecoService.saveEndereco(endereco), HttpStatus.CREATED);
 	}
-	
+
 	@PutMapping
 	public ResponseEntity<Endereco> updateEndereco(@RequestBody @Valid Endereco endereco, Integer id) {
 		return new ResponseEntity<>(enderecoService.updateEndereco(endereco, id), HttpStatus.OK);
 	}
-	
+
 	@PreAuthorize("hasRole('ADMIN')")
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Boolean> delEndereco(@PathVariable Integer id) {
-		Boolean enderecoResponse = enderecoService.delEndereco(id);
-		if (enderecoResponse)
-			return new ResponseEntity<>(enderecoResponse, HttpStatus.OK);
-		else
-			return new ResponseEntity<>(enderecoResponse, HttpStatus.NOT_MODIFIED);
+	public ResponseEntity<MessageDTO> delEndereco(@PathVariable Integer id) {
+		return new ResponseEntity<>(enderecoService.delEndereco(id), HttpStatus.OK);
+
 	}
 }

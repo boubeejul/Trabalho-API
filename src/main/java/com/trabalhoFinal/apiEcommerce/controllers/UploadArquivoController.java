@@ -1,7 +1,5 @@
 package com.trabalhoFinal.apiEcommerce.controllers;
 
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -30,38 +28,41 @@ public class UploadArquivoController {
 
 	@Autowired
 	UploadArquivoService uploadArquivoService;
-	
+
 	@Autowired
 	ProdutoService produtoService;
-	
+
 	@PreAuthorize("hasAnyRole('ADMIN', 'MODERATOR')")
-	@PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
-	public ResponseEntity<UploadArquivoDTO> uploadArquivo(@RequestParam("file") MultipartFile file, @RequestPart("source") String url){
+	@PostMapping(consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE })
+	public ResponseEntity<UploadArquivoDTO> uploadArquivo(@RequestParam("file") MultipartFile file,
+			@RequestPart("source") String url) {
 
 		return new ResponseEntity<>(uploadArquivoService.armazenaArquivo(file, url), HttpStatus.CREATED);
 	}
-	
+
 	@GetMapping("/view/{id}")
-	public ResponseEntity<?> getArquivo(@PathVariable Integer id){
+	public ResponseEntity<?> getArquivo(@PathVariable Integer id) {
 		UploadArquivo arquivo = uploadArquivoService.getFile(id);
-		
-		
-		if(arquivo != null) {
+
+		if (arquivo != null) {
 			return ResponseEntity.ok()
-			        .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + arquivo.getNome() + "\"")
-			        .contentType(MediaType.valueOf(arquivo.getTipoArquivo()))
-			        .body(arquivo.getData());
+					.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + arquivo.getNome() + "\"")
+					.contentType(MediaType.valueOf(arquivo.getTipoArquivo())).body(arquivo.getData());
 		} else
 			return new ResponseEntity<>(new MessageDTO("Imagem não encontrada"), HttpStatus.NOT_FOUND);
 	}
-	
+
 	@PreAuthorize("hasAnyRole('ADMIN', 'MODERATOR')")
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Boolean> delProduto(@PathVariable Integer id) {
-		Boolean produtoResponse = produtoService.delProduto(id);
-		if (produtoResponse)
-			return new ResponseEntity<>(produtoResponse, HttpStatus.OK);
-		else
-			return new ResponseEntity<>(produtoResponse, HttpStatus.NOT_MODIFIED);
+//	public ResponseEntity<Boolean> delProduto(@PathVariable Integer id) {
+//		Boolean produtoResponse = produtoService.delProduto(id);
+//		if (produtoResponse)
+//			return new ResponseEntity<>(produtoResponse, HttpStatus.OK);
+//		else
+//			return new ResponseEntity<>(produtoResponse, HttpStatus.NOT_MODIFIED);
+//	}
+	public ResponseEntity<MessageDTO> delProduto(@PathVariable Integer id) {
+		return new ResponseEntity<>(produtoService.delProduto(id), HttpStatus.OK);
+
 	}
 }

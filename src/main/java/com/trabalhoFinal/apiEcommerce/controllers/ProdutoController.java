@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.trabalhoFinal.apiEcommerce.dto.MessageDTO;
 import com.trabalhoFinal.apiEcommerce.dto.ProdutoDTO;
 import com.trabalhoFinal.apiEcommerce.entities.Produto;
 import com.trabalhoFinal.apiEcommerce.services.ProdutoService;
@@ -56,11 +56,8 @@ public class ProdutoController {
 	}
 	
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Boolean> delProduto(@PathVariable Integer id) {
-		Boolean produtoResponse = produtoService.delProduto(id);
-		if (produtoResponse)
-			return new ResponseEntity<>(produtoResponse, HttpStatus.OK);
-		else
-			return new ResponseEntity<>(produtoResponse, HttpStatus.NOT_MODIFIED);
+	public ResponseEntity<MessageDTO> delProduto(@PathVariable Integer id) {
+		return new ResponseEntity<>(produtoService.delProduto(id), HttpStatus.OK);
+	
 	}
 }

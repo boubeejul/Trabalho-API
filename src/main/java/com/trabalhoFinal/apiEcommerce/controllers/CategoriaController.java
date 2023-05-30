@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.trabalhoFinal.apiEcommerce.dto.CategoriaDTO;
+import com.trabalhoFinal.apiEcommerce.dto.MessageDTO;
 import com.trabalhoFinal.apiEcommerce.entities.Categoria;
 import com.trabalhoFinal.apiEcommerce.services.CategoriaService;
 
@@ -60,11 +61,7 @@ public class CategoriaController {
 	
 	@PreAuthorize("hasAnyRole('ADMIN', 'MODERATOR')")
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Boolean> delCategoria(@PathVariable Integer id) {
-		Boolean categoriaResponse = categoriaService.delCategoria(id);
-		if (categoriaResponse)
-			return new ResponseEntity<>(categoriaResponse, HttpStatus.OK);
-		else
-			return new ResponseEntity<>(categoriaResponse, HttpStatus.NOT_MODIFIED);
+	public ResponseEntity<MessageDTO> delCategoria(@PathVariable Integer id) {
+		return new ResponseEntity<>(categoriaService.delCategoria(id), HttpStatus.OK);
 	}
 }

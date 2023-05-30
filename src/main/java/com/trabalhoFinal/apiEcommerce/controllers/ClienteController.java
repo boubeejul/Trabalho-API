@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.trabalhoFinal.apiEcommerce.dto.ClienteDTO;
+import com.trabalhoFinal.apiEcommerce.dto.MessageDTO;
 import com.trabalhoFinal.apiEcommerce.entities.Cliente;
 import com.trabalhoFinal.apiEcommerce.services.ClienteService;
 
@@ -57,11 +58,8 @@ public class ClienteController {
 	
 	@PreAuthorize("hasRole('ADMIN')")
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Boolean> delCliente(@PathVariable Integer id) {
-		Boolean clienteResponse = clienteService.delCliente(id);
-		if (clienteResponse)
-			return new ResponseEntity<>(clienteResponse, HttpStatus.OK);
-		else
-			return new ResponseEntity<>(clienteResponse, HttpStatus.NOT_MODIFIED);
+	public ResponseEntity<MessageDTO> delCliente(@PathVariable Integer id) {
+		return new ResponseEntity<>(clienteService.delCliente(id), HttpStatus.OK);
+		
 	}
 }

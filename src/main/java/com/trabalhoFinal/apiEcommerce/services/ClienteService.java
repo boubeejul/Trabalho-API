@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.trabalhoFinal.apiEcommerce.dto.ClienteDTO;
 import com.trabalhoFinal.apiEcommerce.dto.EnderecoClienteDTO;
+import com.trabalhoFinal.apiEcommerce.dto.MessageDTO;
 import com.trabalhoFinal.apiEcommerce.dto.PedidoClienteDTO;
 import com.trabalhoFinal.apiEcommerce.entities.Cliente;
 import com.trabalhoFinal.apiEcommerce.entities.Pedido;
@@ -54,13 +55,14 @@ public class ClienteService {
 	}
 
 	public Cliente getClienteById(Integer id) {
-		return clienteRepository.findById(id).orElseThrow(() -> new ClienteNotFoundException(id)); 
-		
+		return clienteRepository.findById(id).orElseThrow(() -> new ClienteNotFoundException(id));
+
 	}
 
 	public Cliente saveCliente(Cliente cliente) {
 		Cliente novoCliente = clienteRepository.save(cliente);
-		//emailService.enviarEmail("romuloandriolo@hotmail.com", "Novo Cliente cadastrado!", novoCliente.toString());
+		// emailService.enviarEmail("romuloandriolo@hotmail.com", "Novo Cliente
+		// cadastrado!", novoCliente.toString());
 
 		return novoCliente;
 	}
@@ -69,14 +71,11 @@ public class ClienteService {
 		return clienteRepository.save(cliente);
 	}
 
-	public Boolean delCliente(Integer id) {
-		Cliente cliente = clienteRepository.findById(id).orElse(null);
+	public MessageDTO delCliente(Integer id) {
+		clienteRepository.findById(id).orElseThrow(() -> new ClienteNotFoundException(id));
 
-		if (cliente != null) {
-			clienteRepository.deleteById(id);
-			return true;
-		} else {
-			return false;
-		}
+		clienteRepository.deleteById(id);
+		return new MessageDTO("Cliente Excluido com sucesso");
+
 	}
 }

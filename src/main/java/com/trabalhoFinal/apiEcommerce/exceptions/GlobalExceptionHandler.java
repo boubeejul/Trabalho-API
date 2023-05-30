@@ -85,11 +85,12 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 				 BindingResult result = subEx.getBindingResult();
 				problemDetailBody.setTitle("Erro na requisição");
 				problemDetailBody.setDetail("Ocorreu um erro ao processar a requisição");
-				problemDetailBody.setProperty("message", "Verifique se os parâmetros foram preechidos corretamente.");
+				problemDetailBody.setProperty("message", "Verifique os erros abaixo");
 
 				for (int i = 0; i < result.getAllErrors().size(); i++) {
 				
 					problemDetailBody.setProperty("error" + (i+1), result.getAllErrors().get(i).getDefaultMessage() );
+					
 				}
 			}
 		}

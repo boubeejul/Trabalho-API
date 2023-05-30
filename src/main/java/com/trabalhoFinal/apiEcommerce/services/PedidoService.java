@@ -16,7 +16,6 @@ import com.trabalhoFinal.apiEcommerce.dto.ProdutoEmailDTO;
 import com.trabalhoFinal.apiEcommerce.dto.ProdutoPedidoDTO;
 import com.trabalhoFinal.apiEcommerce.entities.ItemPedido;
 import com.trabalhoFinal.apiEcommerce.entities.Pedido;
-import com.trabalhoFinal.apiEcommerce.entities.Produto;
 import com.trabalhoFinal.apiEcommerce.exceptions.PedidoNotFoundException;
 import com.trabalhoFinal.apiEcommerce.repositories.PedidoRepository;
 
@@ -146,14 +145,11 @@ public class PedidoService {
 		return pedidoRepository.save(pedido);
 	}
 
-	public Boolean delPedido(Integer id) {
-		Pedido pedido = pedidoRepository.findById(id).orElse(null);
+	public MessageDTO delPedido(Integer id) {
+		pedidoRepository.findById(id).orElseThrow(() -> new PedidoNotFoundException(id));
 
-		if (pedido != null) {
-			pedidoRepository.deleteById(id);
-			return true;
-		} else {
-			return false;
-		}
+		pedidoRepository.deleteById(id);
+		return new MessageDTO("Pedido Excluido com sucesso");
+
 	}
 }

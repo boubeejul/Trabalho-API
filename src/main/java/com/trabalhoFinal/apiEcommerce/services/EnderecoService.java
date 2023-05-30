@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import com.trabalhoFinal.apiEcommerce.dto.MessageDTO;
 import com.trabalhoFinal.apiEcommerce.entities.Endereco;
 import com.trabalhoFinal.apiEcommerce.exceptions.EnderecoNotFoundException;
 import com.trabalhoFinal.apiEcommerce.repositories.EnderecoRepository;
@@ -17,49 +18,46 @@ public class EnderecoService {
 
 	@Autowired
 	private EnderecoRepository enderecoRepository;
-	
-	public List<Endereco> getAllEnderecos() { 
+
+	public List<Endereco> getAllEnderecos() {
 		return enderecoRepository.findAll();
 	}
-	
+
 	public Endereco getEnderecoById(Integer id) {
-		return enderecoRepository.findById(id).orElseThrow(() -> new EnderecoNotFoundException(id)); 
+		return enderecoRepository.findById(id).orElseThrow(() -> new EnderecoNotFoundException(id));
 	}
-	
-	public Endereco saveEndereco(Endereco endereco) { 
-		
+
+	public Endereco saveEndereco(Endereco endereco) {
+
 		Endereco enderecoApi = consultaApiEnderecoWs(endereco.getCep());
 		enderecoApi.setNumero(endereco.getNumero());
 		enderecoRepository.save(enderecoApi);
-		return enderecoApi; 
-		
+		return enderecoApi;
+
 	}
-	
-	public Endereco updateEndereco(Endereco endereco, Integer id) { 
+
+	public Endereco updateEndereco(Endereco endereco, Integer id) {
 		return enderecoRepository.save(endereco);
 	}
 
-	public Boolean delEndereco(Integer id) {
-		Endereco endereco = enderecoRepository.findById(id).orElse(null);
-		
-		if (endereco != null) {
-			enderecoRepository.deleteById(id);
-			return true;
-		} else {
-			return false;
-		}
+	public MessageDTO delEndereco(Integer id) {
+		enderecoRepository.findById(id).orElseThrow(() -> new EnderecoNotFoundException(id));
+
+		enderecoRepository.deleteById(id);
+		return new MessageDTO("Endereço Deletado Com sucesso!");
+
 	}
-	
+
 	private Endereco consultaApiEnderecoWs(String cep) {
 
-        RestTemplate restTemplate = new RestTemplate();
-        String uri = "https://viacep.com.br/ws/{cep}/json/";
+		RestTemplate restTemplate = new RestTemplate();
+		String uri = "https://viacep.com.br/ws/{cep}/json/";
 
-        Map<String, String> params = new HashMap<String, String>();
-        params.put("cep", cep);
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("cep", cep);
 
-        Endereco endereco = restTemplate.getForObject(uri, Endereco.class, params);
+		Endereco endereco = restTemplate.getForObject(uri, Endereco.class, params);
 
-        return endereco;
-    }
+		return endereco;
+	}
 }

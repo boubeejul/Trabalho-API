@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.trabalhoFinal.apiEcommerce.dto.MessageDTO;
 import com.trabalhoFinal.apiEcommerce.entities.ItemPedido;
 import com.trabalhoFinal.apiEcommerce.entities.Pedido;
 import com.trabalhoFinal.apiEcommerce.exceptions.ItemPedidoNotFoundException;
@@ -16,52 +17,52 @@ public class ItemPedidoService {
 
 	@Autowired
 	private ItemPedidoRepository itemPedidoRepository;
-	
+
 	@Autowired
 	private PedidoService pedidoService;
-	
+
 	@Autowired
 	private PedidoRepository pedidoRepository;
-	
-	public List<ItemPedido> getAllItemPedidos() { 
+
+	public List<ItemPedido> getAllItemPedidos() {
 		return itemPedidoRepository.findAll();
 	}
-	
+
 	public ItemPedido getItemPedidoById(Integer id) {
-		return itemPedidoRepository.findById(id).orElseThrow(() -> new ItemPedidoNotFoundException(id)); 
+		return itemPedidoRepository.findById(id).orElseThrow(() -> new ItemPedidoNotFoundException(id));
 	}
-	
-	public ItemPedido saveItemPedido(ItemPedido itemPedido) { 
+
+	public ItemPedido saveItemPedido(ItemPedido itemPedido) {
 		itemPedido.setValor_bruto(itemPedido.getPreco_venda() * itemPedido.getQuantidade());
-		itemPedido.setValor_liquido(itemPedido.getValor_bruto() - (itemPedido.getValor_bruto() * (itemPedido.getPercentual_desconto()/100)));
+		itemPedido.setValor_liquido(itemPedido.getValor_bruto()
+				- (itemPedido.getValor_bruto() * (itemPedido.getPercentual_desconto() / 100)));
 		atualizaValorTotal(itemPedido, 0);
-		return itemPedidoRepository.save(itemPedido); 
-	}
-	
-	public ItemPedido updateItemPedido(ItemPedido itemPedido, Integer id) { 
 		return itemPedidoRepository.save(itemPedido);
 	}
 
-	public Boolean delItemPedido(Integer id) {
-		ItemPedido itemPedido = itemPedidoRepository.findById(id).orElse(null);
-		
-		if (itemPedido != null) {
-			itemPedidoRepository.deleteById(id);
-			atualizaValorTotal(itemPedido, 1);
-			return true;
-		} else {
-			return false;
-		}
+	public ItemPedido updateItemPedido(ItemPedido itemPedido, Integer id) {
+		return itemPedidoRepository.save(itemPedido);
 	}
-	
-	// atualiza o valor total do pedido toda vez que um novo ItemPedido é salvo ou deletado
+
+	public MessageDTO delItemPedido(Integer id) {
+		ItemPedido itemPedido = itemPedidoRepository.findById(id)
+				.orElseThrow(() -> new ItemPedidoNotFoundException(id));
+
+		itemPedidoRepository.deleteById(id);
+		atualizaValorTotal(itemPedido, 1);
+		return new MessageDTO("ItemPedido Deletado com sucesso!");
+
+	}
+
+	// atualiza o valor total do pedido toda vez que um novo ItemPedido é salvo ou
+	// deletado
 	public void atualizaValorTotal(ItemPedido itemPedido, Integer r) {
 		// r = 0 | saveItemPedido
 		// r = 1 | delItemPedido
-		
+
 		Pedido pedidoAtualizado = pedidoService.getPedidoById(itemPedido.getPedido().getId_pedido());
 		pedidoAtualizado.setValor_total(itemPedido.getValor_liquido(), r);
-	
+
 		pedidoService.updatePedido(pedidoAtualizado);
 	}
 }

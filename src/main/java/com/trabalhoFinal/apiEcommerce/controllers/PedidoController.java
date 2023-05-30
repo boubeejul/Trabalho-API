@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,49 +28,46 @@ public class PedidoController {
 
 	@Autowired
 	PedidoService pedidoService;
-	
-	@GetMapping 
+
+	@GetMapping
 	public ResponseEntity<List<Pedido>> getAllPedidos() {
 		return new ResponseEntity<>(pedidoService.getAllPedidos(), HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/{id}")
 	public ResponseEntity<Pedido> getPedidoById(@PathVariable Integer id) {
 		return new ResponseEntity<>(pedidoService.getPedidoById(id), HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/relatorio/{id}")
 	public ResponseEntity<MessageDTO> getRelatorio(@PathVariable Integer id) {
 		return new ResponseEntity<>(pedidoService.requestRelatorio(id), HttpStatus.OK);
 	}
-	
-	//DTO
-	@GetMapping("/dto") 
+
+	// DTO
+	@GetMapping("/dto")
 	public ResponseEntity<List<PedidoDTO>> getAllPedidosDTO() {
 		return new ResponseEntity<>(pedidoService.getAllPedidosDTO(), HttpStatus.OK);
 	}
-	
+
 	@PostMapping
 	public ResponseEntity<?> savePedido(@RequestBody @Valid Pedido pedido) {
 		Boolean pedidoResponse = pedidoService.savePedido(pedido);
-		
-		if(pedidoResponse)
+
+		if (pedidoResponse)
 			return new ResponseEntity<>(pedido, HttpStatus.CREATED);
 		else
 			return ResponseEntity.badRequest().body(new MessageDTO("Datas não cadastradas corretamente!"));
 	}
-	
+
 	@PutMapping
 	public ResponseEntity<Pedido> updatePedido(@RequestBody @Valid Pedido pedido, Integer id) {
 		return new ResponseEntity<>(pedidoService.updatePedido(pedido), HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Boolean> delPedido(@PathVariable Integer id) {
-		Boolean pedidoResponse = pedidoService.delPedido(id);
-		if (pedidoResponse)
-			return new ResponseEntity<>(pedidoResponse, HttpStatus.OK);
-		else
-			return new ResponseEntity<>(pedidoResponse, HttpStatus.NOT_MODIFIED);
+	public ResponseEntity<MessageDTO> delPedido(@PathVariable Integer id) {
+		return new ResponseEntity<>(pedidoService.delPedido(id), HttpStatus.OK);
+
 	}
 }
