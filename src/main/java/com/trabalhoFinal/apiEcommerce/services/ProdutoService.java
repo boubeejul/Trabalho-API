@@ -61,14 +61,7 @@ public class ProdutoService {
 	public MessageDTO delProduto(Integer id) {
 		produtoRepository.findById(id).orElseThrow(() -> new ProdutoNotFoundException(id));
 
-//		if (produto != null) {
-//			produtoRepository.deleteById(id);
-//			return true;
-//		} else {
-//			return false;
-//		}
-		
 		produtoRepository.deleteById(id);
-		return new MessageDTO("Produto Deletado com sucesso!");	
+		return new MessageDTO("Produto Deletado com sucesso!");
 	}
 }
