@@ -38,12 +38,15 @@ public class ProdutoController {
 		return new ResponseEntity<>(produtoService.getProdutoById(id), HttpStatus.OK);
 	}
 	
+	
 	//DTO
 	
 	@GetMapping("/dto") 
 	public ResponseEntity<List<ProdutoDTO>> getAllProdutosDTO() {
 		return new ResponseEntity<>(produtoService.getAllProdutosDTO(), HttpStatus.OK);
 	}
+	
+	
 	
 	@PostMapping
 	public ResponseEntity<Produto> saveProduto(@RequestBody @Valid Produto produto) {

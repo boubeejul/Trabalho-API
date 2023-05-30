@@ -48,9 +48,7 @@ public class ProdutoService {
 	public Produto saveProduto(Produto produto) {
 
 		LocalDate localDate = LocalDate.now();
-
 		produto.setData_cadastro(localDate);
-
 		return produtoRepository.save(produto);
 	}
 
@@ -62,6 +60,6 @@ public class ProdutoService {
 		produtoRepository.findById(id).orElseThrow(() -> new ProdutoNotFoundException(id));
 
 		produtoRepository.deleteById(id);
-		return new MessageDTO("Produto Deletado com sucesso!");
+		return new MessageDTO("Produto deletado com sucesso!");
 	}
 }

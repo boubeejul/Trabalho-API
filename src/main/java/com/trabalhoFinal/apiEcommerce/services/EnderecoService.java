@@ -44,10 +44,11 @@ public class EnderecoService {
 		enderecoRepository.findById(id).orElseThrow(() -> new EnderecoNotFoundException(id));
 
 		enderecoRepository.deleteById(id);
-		return new MessageDTO("Endereço Deletado Com sucesso!");
+		return new MessageDTO("Endereço excluído com sucesso!");
 
 	}
 
+	// API
 	private Endereco consultaApiEnderecoWs(String cep) {
 
 		RestTemplate restTemplate = new RestTemplate();

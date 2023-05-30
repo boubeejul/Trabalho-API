@@ -60,11 +60,7 @@ public class ClienteService {
 	}
 
 	public Cliente saveCliente(Cliente cliente) {
-		Cliente novoCliente = clienteRepository.save(cliente);
-		// emailService.enviarEmail("romuloandriolo@hotmail.com", "Novo Cliente
-		// cadastrado!", novoCliente.toString());
-
-		return novoCliente;
+		return clienteRepository.save(cliente);
 	}
 
 	public Cliente updateCliente(Cliente cliente, Integer id) {
@@ -75,7 +71,7 @@ public class ClienteService {
 		clienteRepository.findById(id).orElseThrow(() -> new ClienteNotFoundException(id));
 
 		clienteRepository.deleteById(id);
-		return new MessageDTO("Cliente Excluido com sucesso");
+		return new MessageDTO("Cliente excluido com sucesso");
 
 	}
 }

@@ -15,7 +15,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 
 @JsonIdentityInfo(
@@ -57,6 +58,7 @@ public class Pedido {
 	@OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
 	private Set<ItemPedido> itemPedidos;
 
+	
 	public Integer getId_pedido() {
 		return id_pedido;
 	}

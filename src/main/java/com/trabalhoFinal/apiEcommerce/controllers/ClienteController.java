@@ -39,11 +39,13 @@ public class ClienteController {
 		return new ResponseEntity<>(clienteService.getClienteById(id), HttpStatus.OK);
 	}
 	
+	
 	// DTO
 	@GetMapping ("/dto")
 	public ResponseEntity<List<ClienteDTO>> getAllClientesDTO() {
 		return new ResponseEntity<>(clienteService.getAllClientesDTO(), HttpStatus.OK);
 	}
+	
 	
 	
 	@PostMapping

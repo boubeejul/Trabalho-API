@@ -39,10 +39,4 @@ public class ProdutoPedidoDTO {
 	public void setValor(Double valor) {
 		this.valor = valor;
 	}
-
-	@Override
-	public String toString() {
-		return "ProdutoPedidoDTO [nome=" + nome + ", quantidade=" + quantidade + ", valor=" + valor + "]";
-	}
-
 }
