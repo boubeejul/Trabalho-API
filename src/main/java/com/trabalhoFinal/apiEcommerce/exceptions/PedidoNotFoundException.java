@@ -7,4 +7,8 @@ public class PedidoNotFoundException extends RuntimeException {
 	public PedidoNotFoundException(Integer id) {
 		super("Não foi encontrado Pedido com o id = " + id);
 	}
+	
+	public PedidoNotFoundException(String mensagem) {
+		super(mensagem);
+	}
 }

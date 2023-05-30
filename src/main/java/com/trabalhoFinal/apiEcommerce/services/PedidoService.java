@@ -3,6 +3,7 @@ package com.trabalhoFinal.apiEcommerce.services;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
@@ -14,9 +15,12 @@ import com.trabalhoFinal.apiEcommerce.dto.PedidoDTO;
 import com.trabalhoFinal.apiEcommerce.dto.PedidoEmailDTO;
 import com.trabalhoFinal.apiEcommerce.dto.ProdutoEmailDTO;
 import com.trabalhoFinal.apiEcommerce.dto.ProdutoPedidoDTO;
+import com.trabalhoFinal.apiEcommerce.entities.Cliente;
 import com.trabalhoFinal.apiEcommerce.entities.ItemPedido;
 import com.trabalhoFinal.apiEcommerce.entities.Pedido;
+import com.trabalhoFinal.apiEcommerce.exceptions.ClienteNotFoundException;
 import com.trabalhoFinal.apiEcommerce.exceptions.PedidoNotFoundException;
+import com.trabalhoFinal.apiEcommerce.repositories.ClienteRepository;
 import com.trabalhoFinal.apiEcommerce.repositories.PedidoRepository;
 
 @Service
@@ -24,6 +28,9 @@ public class PedidoService {
 
 	@Autowired
 	private PedidoRepository pedidoRepository;
+	
+	@Autowired
+	private ClienteRepository clienteRepository;
 
 	@Autowired
 	EmailService emailService;
@@ -60,7 +67,39 @@ public class PedidoService {
 	public Pedido getPedidoById(Integer id) {
 		return pedidoRepository.findById(id).orElseThrow(() -> new PedidoNotFoundException(id));
 	}
-
+	
+	public List<PedidoDTO> getAllPedidosClienteById(Integer id) {
+		
+		Cliente cliente = clienteRepository.findById(id).orElseThrow(() -> new ClienteNotFoundException(id));
+		List<Pedido> pedidos = cliente.getPedidos();
+		
+		if(pedidos.size() != 0) {
+			ModelMapper modelMapper = new ModelMapper();
+			List<PedidoDTO> pedidosDTO = new ArrayList<>();
+			
+			for(Pedido pedido: pedidos) {
+				PedidoDTO pedidoDto = modelMapper.map(pedido, PedidoDTO.class);
+				pedidoDto.setId_cliente(pedido.getCliente().getId_cliente());
+				
+				List<ProdutoPedidoDTO> produtosPedido = new ArrayList<>();
+				
+				for(ItemPedido itemPedido: pedido.getItemPedidos()) {
+					ProdutoPedidoDTO produtoDto = modelMapper.map(itemPedido.getProduto(), ProdutoPedidoDTO.class);
+					produtoDto.setQuantidade(itemPedido.getQuantidade());
+					produtosPedido.add(produtoDto);
+				}
+				
+				pedidoDto.setProdutos(produtosPedido);
+				pedidosDTO.add(pedidoDto);
+			}
+			
+			return pedidosDTO;
+			
+		} else {
+			throw new PedidoNotFoundException("Não há pedidos cadastrados para esse cliente!");
+		}
+	}
+	
 	// Gera Relatório de Pedido e envia por email
 	public MessageDTO requestRelatorio(Integer id) {
 		ModelMapper modelMapper = new ModelMapper();
