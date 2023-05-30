@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.trabalhoFinal.apiEcommerce.dto.MessageDTO;
 import com.trabalhoFinal.apiEcommerce.entities.Endereco;
+import com.trabalhoFinal.apiEcommerce.repositories.EnderecoRepository;
 import com.trabalhoFinal.apiEcommerce.services.EnderecoService;
 
 import jakarta.validation.Valid;
@@ -27,6 +28,9 @@ public class EnderecoController {
 
 	@Autowired
 	EnderecoService enderecoService;
+
+	@Autowired
+	EnderecoRepository enderecoRepository;
 
 	@GetMapping
 	public ResponseEntity<List<Endereco>> getAllEnderecos() {
@@ -40,11 +44,14 @@ public class EnderecoController {
 
 	@PostMapping
 	public ResponseEntity<Endereco> saveEndereco(@RequestBody @Valid Endereco endereco) {
+
 		return new ResponseEntity<>(enderecoService.saveEndereco(endereco), HttpStatus.CREATED);
+
 	}
 
 	@PutMapping
 	public ResponseEntity<Endereco> updateEndereco(@RequestBody @Valid Endereco endereco, Integer id) {
+
 		return new ResponseEntity<>(enderecoService.updateEndereco(endereco, id), HttpStatus.OK);
 	}
 

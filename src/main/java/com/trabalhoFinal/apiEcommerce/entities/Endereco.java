@@ -20,7 +20,7 @@ public class Endereco {
 	@Column(name = "id_endereco")
 	private Integer id_endereco;
 
-	@NotBlank(message = "O CEP deve ser preenchido!" )
+	
 	@Column(name = "cep")
 	private String cep;
 

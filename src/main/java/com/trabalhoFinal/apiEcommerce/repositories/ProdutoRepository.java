@@ -6,4 +6,6 @@ import com.trabalhoFinal.apiEcommerce.entities.Produto;
 
 public interface ProdutoRepository extends JpaRepository<Produto, Integer>{
 
+	Boolean existsByDescricao(String descricao);
+	
 }

@@ -31,7 +31,7 @@ public class Cliente {
 
 	@NotBlank(message = "O email deve ser preenchido!" )
 	@Email(message = "O email é inválido!" )
-	@Column(name = "email", unique = true)
+	@Column(name = "email")
 	private String email;
 
 	@NotBlank(message = "O nome deve ser preenchido!" )
@@ -40,7 +40,7 @@ public class Cliente {
 
 	@NotBlank(message = "O CPF deve ser preenchido!" )
 	@CPF(message = "O CPF é inválido!" )
-	@Column(name = "cpf", unique = true)
+	@Column(name = "cpf")
 	private String cpf;
 
 	@NotBlank(message = "O telefone deve ser preenchido!" )

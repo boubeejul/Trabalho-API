@@ -38,8 +38,8 @@ public class Produto {
 	@Column(name = "nome")
 	private String nome;
 
-	@NotBlank(message = "A descrição deve ser preenchida e deve ser unica!" )
-	@Column(name = "descricao", unique = true)
+	@NotBlank(message = "A descrição deve ser preenchida!" )
+	@Column(name = "descricao")
 	private String descricao;
 
 	
