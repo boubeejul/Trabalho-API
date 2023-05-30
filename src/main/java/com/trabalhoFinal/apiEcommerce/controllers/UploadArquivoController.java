@@ -54,15 +54,11 @@ public class UploadArquivoController {
 
 	@PreAuthorize("hasAnyRole('ADMIN', 'MODERATOR')")
 	@DeleteMapping("/{id}")
-//	public ResponseEntity<Boolean> delProduto(@PathVariable Integer id) {
-//		Boolean produtoResponse = produtoService.delProduto(id);
-//		if (produtoResponse)
-//			return new ResponseEntity<>(produtoResponse, HttpStatus.OK);
-//		else
-//			return new ResponseEntity<>(produtoResponse, HttpStatus.NOT_MODIFIED);
-//	}
-	public ResponseEntity<MessageDTO> delProduto(@PathVariable Integer id) {
-		return new ResponseEntity<>(produtoService.delProduto(id), HttpStatus.OK);
-
+	public ResponseEntity<Boolean> delArquivo(@PathVariable Integer id) {
+		Boolean arquivoResponse = uploadArquivoService.delFile(id);
+		if (arquivoResponse)
+			return new ResponseEntity<>(arquivoResponse, HttpStatus.OK);
+		else
+			return new ResponseEntity<>(arquivoResponse, HttpStatus.NOT_MODIFIED);
 	}
 }
