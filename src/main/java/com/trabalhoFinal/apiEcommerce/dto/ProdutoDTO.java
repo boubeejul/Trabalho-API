@@ -1,5 +1,6 @@
 package com.trabalhoFinal.apiEcommerce.dto;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class ProdutoDTO {
@@ -7,7 +8,7 @@ public class ProdutoDTO {
 	private String nome;
 	private String descricao;
 	private Integer qtd_estoque;
-	private Date data_cadastro;
+	private LocalDate data_cadastro;
 	private Double valor_unitario;
 	private Integer id_imagem;
 	private String nome_imagem;
@@ -55,11 +56,11 @@ public class ProdutoDTO {
 		this.qtd_estoque = qtd_estoque;
 	}
 
-	public Date getData_cadastro() {
+	public LocalDate getData_cadastro() {
 		return data_cadastro;
 	}
 
-	public void setData_cadastro(Date data_cadastro) {
+	public void setData_cadastro(LocalDate data_cadastro) {
 		this.data_cadastro = data_cadastro;
 	}
 

@@ -3,7 +3,6 @@ package com.trabalhoFinal.apiEcommerce.services;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
@@ -18,9 +17,9 @@ import com.trabalhoFinal.apiEcommerce.dto.ProdutoPedidoDTO;
 import com.trabalhoFinal.apiEcommerce.entities.Cliente;
 import com.trabalhoFinal.apiEcommerce.entities.ItemPedido;
 import com.trabalhoFinal.apiEcommerce.entities.Pedido;
+import com.trabalhoFinal.apiEcommerce.entities.Produto;
 import com.trabalhoFinal.apiEcommerce.exceptions.ClienteNotFoundException;
 import com.trabalhoFinal.apiEcommerce.exceptions.PedidoNotFoundException;
-import com.trabalhoFinal.apiEcommerce.exceptions.UserNotFoundException;
 import com.trabalhoFinal.apiEcommerce.repositories.ClienteRepository;
 import com.trabalhoFinal.apiEcommerce.repositories.PedidoRepository;
 
@@ -69,15 +68,31 @@ public class PedidoService {
 		return pedidoRepository.findById(id).orElseThrow(() -> new PedidoNotFoundException(id));
 	}
 	
-	public Boolean getPedidoUserById(Integer id, String email) {
+	public PedidoDTO getPedidoUserById(Integer id, String email) {
 		pedidoRepository.findById(id).orElseThrow(() -> new PedidoNotFoundException(id));
 		
 		String clienteEmail = pedidoRepository.findById(id).get().getCliente().getEmail();
 		
-		if(clienteEmail.equals(email))
-			return true;
-		else
-			return false;
+		if(clienteEmail.equals(email)) {
+			ModelMapper modelMapper = new ModelMapper();
+			PedidoDTO pedidoDTO = modelMapper.map(pedidoRepository.findById(id), PedidoDTO.class);
+			pedidoDTO.setId_cliente(pedidoRepository.findById(id).get().getCliente().getId_cliente());
+			
+			List<ProdutoPedidoDTO> listaProdutos = new ArrayList<>();
+			
+			for(ItemPedido itemPedido: pedidoRepository.findById(id).get().getItemPedidos()) {
+				
+				ProdutoPedidoDTO prodPedDto = modelMapper.map(itemPedido.getProduto(), ProdutoPedidoDTO.class);
+				prodPedDto.setQuantidade(itemPedido.getQuantidade());
+				listaProdutos.add(prodPedDto);
+			}
+			
+			pedidoDTO.setProdutos(listaProdutos);
+			
+			return pedidoDTO;
+		} else {
+			return null;
+		}
 	}
 	
 	public List<PedidoDTO> getAllPedidosClienteById(Integer id) {
@@ -138,7 +153,7 @@ public class PedidoService {
 			pedidoEmail.setProdutos(prodPedDto);
 			pedidoEmail.setNome_cliente(pedidoRepository.findById(id).get().getCliente().getNome_completo());;
 
-			emailService.enviarEmail("romuloandriolo@hotmail.com", "Relatório de Pedido", pedidoEmail);
+			emailService.enviarEmail("romuloandriolo@hotmail.com", "Relatório de Pedido " + pedidoEmail.getId_pedido(), pedidoEmail);
 			return new MessageDTO("Relatório enviado com sucesso!");
 		} else {
 			return new MessageDTO("Relatório indisponível");
@@ -149,18 +164,15 @@ public class PedidoService {
 	public Boolean savePedido(Pedido pedido) {
 
 		LocalDate localDate = LocalDate.now();
-
-		if (pedido.getData_pedido().isEqual(localDate) || pedido.getData_pedido().isAfter(localDate)) {
-			if (pedido.getData_entrega().isEqual(pedido.getData_pedido())
-					|| pedido.getData_entrega().isAfter(pedido.getData_pedido())) {
-				if (pedido.getData_envio().isEqual(pedido.getData_entrega())
-						|| pedido.getData_envio().isBefore(pedido.getData_entrega()))
-
-					pedidoRepository.save(pedido);
-					return true;
-			}
-		}
-		return false;
+		
+		Boolean data_pedido = pedido.getData_pedido().isEqual(localDate) || pedido.getData_pedido().isAfter(localDate);
+		Boolean data_entrega = pedido.getData_entrega().isEqual(pedido.getData_pedido()) || pedido.getData_entrega().isAfter(pedido.getData_pedido());
+		Boolean data_envio = pedido.getData_envio().isEqual(pedido.getData_entrega()) || pedido.getData_envio().isAfter(pedido.getData_entrega());
+		
+		if(data_pedido && data_entrega && data_envio)
+			return true;
+		else
+			return false;
 	}
 
 	public Pedido updatePedido(Pedido pedido) {

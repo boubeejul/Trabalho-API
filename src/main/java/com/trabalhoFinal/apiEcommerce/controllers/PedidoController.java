@@ -46,11 +46,10 @@ public class PedidoController {
 		
 		UserDetailsImpl userDetails = (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String userEmail = userDetails.getEmail();
+		PedidoDTO pedidoDTO = pedidoService.getPedidoUserById(id, userEmail);
 		
-		Boolean retorno = pedidoService.getPedidoUserById(id, userEmail);
-		
-		if(retorno)
-			return new ResponseEntity<>(pedidoService.getPedidoById(id), HttpStatus.OK);
+		if(pedidoDTO != null)
+			return new ResponseEntity<>(pedidoDTO, HttpStatus.OK);
 		else
 			return new ResponseEntity<>(new MessageDTO("Esse pedido não está relacionado a esse usuário"), HttpStatus.OK);
 	}
