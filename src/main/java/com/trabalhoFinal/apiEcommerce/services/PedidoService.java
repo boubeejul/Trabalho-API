@@ -17,7 +17,6 @@ import com.trabalhoFinal.apiEcommerce.dto.ProdutoPedidoDTO;
 import com.trabalhoFinal.apiEcommerce.entities.Cliente;
 import com.trabalhoFinal.apiEcommerce.entities.ItemPedido;
 import com.trabalhoFinal.apiEcommerce.entities.Pedido;
-import com.trabalhoFinal.apiEcommerce.entities.Produto;
 import com.trabalhoFinal.apiEcommerce.exceptions.ClienteNotFoundException;
 import com.trabalhoFinal.apiEcommerce.exceptions.PedidoNotFoundException;
 import com.trabalhoFinal.apiEcommerce.repositories.ClienteRepository;
