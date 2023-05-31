@@ -3,7 +3,7 @@ package com.trabalhoFinal.apiEcommerce.dto;
 import java.time.LocalDate;
 import java.util.List;
 
-public class PedidoEmailDTO {
+public class RelatorioPedidoDTO {
 
 	private Integer id_pedido;
 	private LocalDate data_pedido;

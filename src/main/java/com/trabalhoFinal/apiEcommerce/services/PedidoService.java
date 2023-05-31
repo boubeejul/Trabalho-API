@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.trabalhoFinal.apiEcommerce.dto.MessageDTO;
 import com.trabalhoFinal.apiEcommerce.dto.PedidoDTO;
-import com.trabalhoFinal.apiEcommerce.dto.PedidoEmailDTO;
+import com.trabalhoFinal.apiEcommerce.dto.RelatorioPedidoDTO;
 import com.trabalhoFinal.apiEcommerce.dto.ProdutoEmailDTO;
 import com.trabalhoFinal.apiEcommerce.dto.ProdutoPedidoDTO;
 import com.trabalhoFinal.apiEcommerce.entities.Cliente;
@@ -133,7 +133,7 @@ public class PedidoService {
 		Optional<Pedido> pedido = pedidoRepository.findById(id);
 
 		if (pedido != null) {
-			PedidoEmailDTO pedidoEmail = modelMapper.map(pedidoRepository.findById(id), PedidoEmailDTO.class);
+			RelatorioPedidoDTO pedidoEmail = modelMapper.map(pedidoRepository.findById(id), RelatorioPedidoDTO.class);
 
 			List<ProdutoEmailDTO> prodPedDto = new ArrayList<>();
 

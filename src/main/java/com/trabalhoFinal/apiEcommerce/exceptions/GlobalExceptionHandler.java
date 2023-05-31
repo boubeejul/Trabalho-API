@@ -90,6 +90,16 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 		return problemDetail;
 
 	}
+	
+	@ExceptionHandler(HttpClientErrorExceptionhandler.class)
+	ProblemDetail handleBookmarkNotFoundException(HttpClientErrorExceptionhandler e) {
+		ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, e.getMessage());
+		problemDetail.setTitle("Endereço Não Encontrado");
+		problemDetail.setType(URI.create("https://api.grupo3trabalho.com/errors/not-found"));
+		return problemDetail;
+
+	}
+	
 
 	@Override
 	protected ResponseEntity<Object> handleExceptionInternal(Exception ex, @Nullable Object body, HttpHeaders headers,

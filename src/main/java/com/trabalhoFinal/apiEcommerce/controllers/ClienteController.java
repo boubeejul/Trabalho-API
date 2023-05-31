@@ -58,10 +58,10 @@ public class ClienteController {
 	public ResponseEntity<?> saveCliente(@RequestBody @Valid Cliente cliente) {
 		
 		if(clienteRepository.existsByCpf(cliente.getCpf()))
-			return ResponseEntity.badRequest().body(new MessageResponseDTO("Erro: Cpf já cadastrado já utilizado!"));
+			return ResponseEntity.badRequest().body(new MessageResponseDTO("Erro: Cpf cadastrado já utilizado!"));
 		
 		if(clienteRepository.existsByEmail(cliente.getEmail()))
-			return ResponseEntity.badRequest().body(new MessageResponseDTO("Erro: Email já cadastrado já utilizado!"));
+			return ResponseEntity.badRequest().body(new MessageResponseDTO("Erro: Email cadastrado já utilizado!"));
 		
 		return new ResponseEntity<>(clienteService.saveCliente(cliente), HttpStatus.CREATED);
 	}

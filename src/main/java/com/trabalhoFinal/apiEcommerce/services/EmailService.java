@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
-import com.trabalhoFinal.apiEcommerce.dto.PedidoEmailDTO;
+import com.trabalhoFinal.apiEcommerce.dto.RelatorioPedidoDTO;
 import com.trabalhoFinal.apiEcommerce.dto.ProdutoEmailDTO;
 import com.trabalhoFinal.apiEcommerce.repositories.ProdutoRepository;
 
@@ -39,7 +39,7 @@ public class EmailService {
         this.emailSender = javaMailSender;
     }
 
-    public void enviarEmail (String destinatario, String assunto, PedidoEmailDTO pedido) {
+    public void enviarEmail (String destinatario, String assunto, RelatorioPedidoDTO pedido) {
     	MimeMessage message = emailSender.createMimeMessage();
     	
     	try {
