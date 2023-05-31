@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.trabalhoFinal.apiEcommerce.dto.MessageDTO;
 import com.trabalhoFinal.apiEcommerce.dto.PedidoDTO;
 import com.trabalhoFinal.apiEcommerce.entities.Pedido;
+import com.trabalhoFinal.apiEcommerce.security.service.UserDetailsImpl;
 import com.trabalhoFinal.apiEcommerce.services.PedidoService;
 
 import jakarta.validation.Valid;
@@ -35,7 +37,22 @@ public class PedidoController {
 
 	@GetMapping("/{id}")
 	public ResponseEntity<Pedido> getPedidoById(@PathVariable Integer id) {
+		
 		return new ResponseEntity<>(pedidoService.getPedidoById(id), HttpStatus.OK);
+	}
+	
+	@GetMapping("/user/{id}")
+	public ResponseEntity<?> getPedidoUserById(@PathVariable Integer id) {
+		
+		UserDetailsImpl userDetails = (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String userEmail = userDetails.getEmail();
+		
+		Boolean retorno = pedidoService.getPedidoUserById(id, userEmail);
+		
+		if(retorno)
+			return new ResponseEntity<>(pedidoService.getPedidoById(id), HttpStatus.OK);
+		else
+			return new ResponseEntity<>(new MessageDTO("Esse pedido não está relacionado a esse usuário"), HttpStatus.OK);
 	}
 
 	@GetMapping("/relatorio/{id}")

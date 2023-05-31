@@ -20,6 +20,7 @@ import com.trabalhoFinal.apiEcommerce.entities.ItemPedido;
 import com.trabalhoFinal.apiEcommerce.entities.Pedido;
 import com.trabalhoFinal.apiEcommerce.exceptions.ClienteNotFoundException;
 import com.trabalhoFinal.apiEcommerce.exceptions.PedidoNotFoundException;
+import com.trabalhoFinal.apiEcommerce.exceptions.UserNotFoundException;
 import com.trabalhoFinal.apiEcommerce.repositories.ClienteRepository;
 import com.trabalhoFinal.apiEcommerce.repositories.PedidoRepository;
 
@@ -66,6 +67,17 @@ public class PedidoService {
 
 	public Pedido getPedidoById(Integer id) {
 		return pedidoRepository.findById(id).orElseThrow(() -> new PedidoNotFoundException(id));
+	}
+	
+	public Boolean getPedidoUserById(Integer id, String email) {
+		pedidoRepository.findById(id).orElseThrow(() -> new PedidoNotFoundException(id));
+		
+		String clienteEmail = pedidoRepository.findById(id).get().getCliente().getEmail();
+		
+		if(clienteEmail.equals(email))
+			return true;
+		else
+			return false;
 	}
 	
 	public List<PedidoDTO> getAllPedidosClienteById(Integer id) {
