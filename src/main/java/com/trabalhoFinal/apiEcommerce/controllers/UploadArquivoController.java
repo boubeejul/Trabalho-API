@@ -45,7 +45,7 @@ public class UploadArquivoController {
 
 		if (arquivo != null) {
 			return ResponseEntity.ok()
-					.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + arquivo.getNome() + "\"")
+					//.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + arquivo.getNome() + "\"")
 					.contentType(MediaType.valueOf(arquivo.getTipoArquivo())).body(arquivo.getData());
 		} else
 			return new ResponseEntity<>(new MessageDTO("Imagem não encontrada"), HttpStatus.NOT_FOUND);
