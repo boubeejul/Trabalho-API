@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 public class ProdutoDTO {
 
+	private Integer id;
 	private String nome;
 	private String descricao;
 	private Integer qtd_estoque;
@@ -15,6 +16,14 @@ public class ProdutoDTO {
 
 
 	
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
 	public String getNome_imagem() {
 		return nome_imagem;
 	}
