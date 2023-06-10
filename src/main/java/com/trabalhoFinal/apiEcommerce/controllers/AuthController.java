@@ -32,7 +32,7 @@ import com.trabalhoFinal.apiEcommerce.security.service.UserDetailsImpl;
 
 import jakarta.validation.Valid;
 
-//@CrossOrigin(origins = "http://localhost:5173", maxAge = 3600)
+@CrossOrigin(origins = "http://localhost:5173", maxAge = 3600)
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
@@ -51,7 +51,6 @@ public class AuthController {
 	@Autowired
 	JwtUtils jwtUtils;
 
-	@CrossOrigin
 	@PostMapping("/signin")
 	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequestDTO loginRequest) {
 
