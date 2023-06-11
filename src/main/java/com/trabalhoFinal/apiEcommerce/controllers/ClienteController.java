@@ -40,7 +40,7 @@ public class ClienteController {
 		return new ResponseEntity<>(clienteService.getAllClientes(), HttpStatus.OK);
 	}
 	
-	@GetMapping("/{email}")
+	@GetMapping("/info/{email}")
 	public ResponseEntity<Cliente> getClienteByEmail(@PathVariable String email) {
 		return new ResponseEntity<>(clienteService.getClienteByEmail(email), HttpStatus.OK);
 	}
