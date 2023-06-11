@@ -24,6 +24,10 @@ public class ClienteService {
 
 	@Autowired
 	EmailService emailService;
+	
+	public Cliente getClienteByEmail(String email) {
+		return clienteRepository.findByEmail(email);
+	}
 
 	public List<Cliente> getAllClientes() {
 		return clienteRepository.findAll();
