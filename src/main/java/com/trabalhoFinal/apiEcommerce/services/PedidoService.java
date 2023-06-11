@@ -31,8 +31,8 @@ public class PedidoService {
 	@Autowired
 	private ClienteRepository clienteRepository;
 
-	@Autowired
-	EmailService emailService;
+//	@Autowired
+//	EmailService emailService;
 
 	public List<Pedido> getAllPedidos() {
 		return pedidoRepository.findAll();
@@ -152,7 +152,7 @@ public class PedidoService {
 			pedidoEmail.setProdutos(prodPedDto);
 			pedidoEmail.setNome_cliente(pedidoRepository.findById(id).get().getCliente().getNome_completo());;
 
-			emailService.enviarEmail("romuloandriolo@hotmail.com", "Relatório de Pedido " + pedidoEmail.getId_pedido(), pedidoEmail);
+//			emailService.enviarEmail("romuloandriolo@hotmail.com", "Relatório de Pedido " + pedidoEmail.getId_pedido(), pedidoEmail);
 			return new MessageDTO("Relatório enviado com sucesso!");
 		} else {
 			return new MessageDTO("Relatório indisponível");

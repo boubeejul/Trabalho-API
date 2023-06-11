@@ -22,9 +22,9 @@ public class ClienteService {
 	@Autowired
 	private ClienteRepository clienteRepository;
 
-	@Autowired
-	EmailService emailService;
-	
+//	@Autowired
+//	EmailService emailService;
+//	
 	public Cliente getClienteByEmail(String email) {
 		return clienteRepository.findByEmail(email);
 	}
