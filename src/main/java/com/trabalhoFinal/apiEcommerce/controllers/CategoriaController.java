@@ -50,6 +50,11 @@ public class CategoriaController {
 		return new ResponseEntity<>(categoriaService.getAllCategoriasDTO(), HttpStatus.OK);
 	}
 
+	@GetMapping("/dto/{id}")
+	public ResponseEntity<CategoriaDTO> getCategoriaDTOById(@PathVariable Integer id) {
+		return new ResponseEntity<>(categoriaService.getCategoriaByIdDTO(id), HttpStatus.OK);
+	}
+	
 	@PreAuthorize("hasAnyRole('ADMIN', 'MODERATOR')")
 	@PostMapping
 	public ResponseEntity<?> saveCategoria(@RequestBody @Valid Categoria categoria) {
