@@ -59,9 +59,9 @@ public class PedidoController {
 		return new ResponseEntity<>(pedidoService.requestRelatorio(id), HttpStatus.OK);
 	}
 	
-	@GetMapping("/cliente/{id}")
-	public ResponseEntity<List<PedidoDTO>> getAllPedidosClienteById(@PathVariable Integer id) {
-		return new ResponseEntity<>(pedidoService.getAllPedidosClienteById(id), HttpStatus.OK);
+	@GetMapping("/cliente/{email}")
+	public ResponseEntity<List<PedidoDTO>> getAllPedidosClienteByEmail(@PathVariable String email) {
+		return new ResponseEntity<>(pedidoService.getAllPedidosClienteByEmail(email), HttpStatus.OK);
 	}
 
 	// DTO

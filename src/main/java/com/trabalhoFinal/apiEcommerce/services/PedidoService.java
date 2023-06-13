@@ -94,9 +94,9 @@ public class PedidoService {
 		}
 	}
 	
-	public List<PedidoDTO> getAllPedidosClienteById(Integer id) {
+	public List<PedidoDTO> getAllPedidosClienteByEmail(String email) {
 		
-		Cliente cliente = clienteRepository.findById(id).orElseThrow(() -> new ClienteNotFoundException(id));
+		Cliente cliente = clienteRepository.findByEmail(email);
 		List<Pedido> pedidos = cliente.getPedidos();
 		
 		if(pedidos.size() != 0) {
