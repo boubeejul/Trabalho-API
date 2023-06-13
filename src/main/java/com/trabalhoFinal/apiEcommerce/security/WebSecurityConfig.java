@@ -43,8 +43,7 @@ public class WebSecurityConfig {
             .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) //define a politica de sessao
             .authorizeHttpRequests(auth -> auth
                     .requestMatchers("/auth/**", "/roles", "/produtos/dto", "/categorias/dto", "/swagger-ui/**", "/v3/api-docs/**", "/upload/**",  "/produtos/**", "/categorias/**").permitAll() //define as rotas publicas/abertas
-                    .requestMatchers("/pedidos/user/**").hasRole("USER") // autoriza o acesso a rotas por perfil
-                    .requestMatchers("/clientes/**", "/enderecos/**", "/itemPedidos/**", "/pedidos/**", "/users/**").hasAnyRole("ADMIN", "MODERATOR") //autoriza o acesso a rotas por perfis
+                    .requestMatchers("/clientes/**", "/enderecos/**", "/itemPedidos/**", "/pedidos/**", "/users/**").hasAnyRole("ADMIN", "MODERATOR", "USER") //autoriza o acesso a rotas por perfis
                     .anyRequest().authenticated()) //demais rotas, nao configuradas acima, so poderao ser acessadas mediante autenticacao
 		;		
 		
