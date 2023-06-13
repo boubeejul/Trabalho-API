@@ -160,18 +160,8 @@ public class PedidoService {
 
 	}
 
-	public Boolean savePedido(Pedido pedido) {
-
-		LocalDate localDate = LocalDate.now();
-		
-		Boolean data_pedido = pedido.getData_pedido().isEqual(localDate) || pedido.getData_pedido().isAfter(localDate);
-		Boolean data_entrega = pedido.getData_entrega().isEqual(pedido.getData_pedido()) || pedido.getData_entrega().isAfter(pedido.getData_pedido());
-		Boolean data_envio = pedido.getData_envio().isEqual(pedido.getData_entrega()) || pedido.getData_envio().isAfter(pedido.getData_entrega());
-		
-		if(data_pedido && data_entrega && data_envio)
-			return true;
-		else
-			return false;
+	public Pedido savePedido(Pedido pedido) {
+		return pedidoRepository.save(pedido);
 	}
 
 	public Pedido updatePedido(Pedido pedido) {
