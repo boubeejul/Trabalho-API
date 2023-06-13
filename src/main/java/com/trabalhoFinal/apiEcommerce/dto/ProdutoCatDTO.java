@@ -6,8 +6,15 @@ public class ProdutoCatDTO {
 	private Integer id_imagem;
 	private String nome;
 	private String descricao;
+	private Double valor_unitario;
 	
 	
+	public Double getValor_unitario() {
+		return valor_unitario;
+	}
+	public void setValor_unitario(Double valor_unitario) {
+		this.valor_unitario = valor_unitario;
+	}
 	public Integer getId_produto() {
 		return id_produto;
 	}
